@@ -47,10 +47,10 @@ public class Queen implements Pieces {
         List<int[]> steps = new ArrayList<>();
         if (Math.abs(x - newX) == Math.abs(y - newY)) { //diagonal
             Bishop b = new Bishop(x, y, player);
-            steps = b.moving(newX, newY);
+            steps.addAll(b.moving(newX, newY));
         } else {
             Rook r = new Rook(x, y, player);
-            steps = r.moving(newX, newY);
+            steps.addAll(r.moving(newX, newY));
         }
         return steps;
     }

@@ -74,6 +74,7 @@ public class Rook implements Pieces {
                 }
             }
         }
+        steps.remove(steps.size() - 1);
         return steps;
     }
 

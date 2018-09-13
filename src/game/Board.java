@@ -14,9 +14,9 @@ public class Board {
     private int file;
 
 
-    //initialize pieces position
-
     public Board(int rank, int file, Player player0, Player player1) {
+        this.rank = rank;
+        this.file = file;
         board = new Pieces[rank][file];
 
         this.player0 = player0;
@@ -27,6 +27,7 @@ public class Board {
     }
 
 
+    //initialize pieces position
     private List<Pieces> setPlayer0Pieces() {
         List<Pieces> player0Pieces = new ArrayList<>();
         //pawn
@@ -110,7 +111,7 @@ public class Board {
 
 
     // check whether this step is valid;
-    private boolean checkValid(Player player, Pieces piece, int newX, int newY) {
+    public boolean checkValid(Player player, Pieces piece, int newX, int newY) {
         return player.hasThePiece(piece)
                 && isValidMove(piece, newX, newY)
                 && isValidMove(piece, piece.moving(newX, newY));

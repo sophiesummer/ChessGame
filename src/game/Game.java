@@ -6,15 +6,20 @@ public class Game {
     public Player player0;
     public Player player1;
 
-    public Board board;
+    public Board playBoard;
+    public int rank;
+    public int file;
 
 
     public Game(int rank, int file) {
+        this.rank = rank;
+        this.file = file;
 
         player0 = new Player(0);
         player1 = new Player(1);
-        board = new Board(rank, file, player0, player1);
+        playBoard = new Board(rank, file, player0, player1);
     }
+
 
     public void start() {
         System.out.println("Game start!");
@@ -35,12 +40,6 @@ public class Game {
 
 
     }
-
-
-    public void over() {
-
-    }
-
 
 
     public static void main(String args[]) {

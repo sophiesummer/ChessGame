@@ -44,6 +44,7 @@ public class Bishop implements Pieces{
 
 
     /* store the passing positions */
+    // a helper function for later check leap over other pieces
     @Override
     public List<int[]> moving(int newX, int newY) {
         if (!isValidMove(newX, newY)) {
@@ -80,6 +81,7 @@ public class Bishop implements Pieces{
             }
             steps.add(new int[]{currX, currY});
         }
+        steps.remove(steps.size() - 1); // remove the destination position
         return steps;
     }
 

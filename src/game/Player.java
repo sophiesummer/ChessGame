@@ -1,6 +1,5 @@
 package game;
 import pieces.*;
-
 import java.util.*;
 
 public class Player {
@@ -19,8 +18,10 @@ public class Player {
     }
 
     public boolean play(Pieces p, int prevX, int prevY, int newX, int newY) {
-
-        return false;
+        if (isChecked || !hasThePiece(p)) {
+            return false;
+        }
+        return true;
     }
 
     public boolean hasThePiece(Pieces p) {

@@ -41,7 +41,7 @@ public class King implements Pieces{
 
     @Override
     public List<int[]> moving(int newX, int newY) {
-        return new ArrayList<>(); //empty
+        return null; //empty
     }
 
     @Override
