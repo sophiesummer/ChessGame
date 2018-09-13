@@ -110,7 +110,7 @@ public class Board {
 
 
     // check whether this step is valid;
-    public boolean checkValid(Player player, Pieces piece, int newX, int newY) {
+    private boolean checkValid(Player player, Pieces piece, int newX, int newY) {
         return player.hasThePiece(piece)
                 && isValidMove(piece, newX, newY)
                 && isValidMove(piece, piece.moving(newX, newY));
@@ -142,8 +142,13 @@ public class Board {
     }
 
 
-    // check whether the piece leap over others
-    public boolean isValidMove(Pieces p, List<int[]> moves) {
+    /**
+     * check whether the piece leap over others
+     * @param p  moving pieces
+     * @param moves  the path of its moving, which stores all the squares it past
+     * @return
+     */
+    private boolean isValidMove(Pieces p, List<int[]> moves) {
         if (moves == null || moves.isEmpty()) {
             return true;
         }
@@ -157,7 +162,7 @@ public class Board {
     }
 
     // check whether the destination is valid
-    public boolean isValidMove(Pieces p, int newX, int newY) {
+    private boolean isValidMove(Pieces p, int newX, int newY) {
 
         if (board[newX][newY] != null) {
             Player movingPlayer = p.getPlayer();
