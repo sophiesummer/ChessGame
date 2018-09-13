@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Pawn implements Pieces {
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
     public Player player;
     public Type type = Type.Pawn;
 
@@ -72,6 +72,16 @@ public class Pawn implements Pieces {
         x = newX;
         y = newY;
         firstStep = false;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
     }
 
 }

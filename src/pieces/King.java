@@ -7,11 +7,10 @@ import java.util.List;
 
 public class King implements Pieces{
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
     Type type = Type.King;
     Player player;
-    boolean isChecked = false;
 
     public King(int x, int y, Player player) {
         this.x = x;
@@ -51,7 +50,14 @@ public class King implements Pieces{
         y = newY;
     }
 
-    public void isChecked() {
-        isChecked = true;
+    @Override
+    public void setX(int x) {
+        this.x = x;
     }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }

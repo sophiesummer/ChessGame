@@ -7,10 +7,10 @@ import java.util.List;
 
 public class Bishop implements Pieces{
 
-    public int x;
-    public int y;
-    Type type =  Type.Bishop;
-    Player player;
+    private int x;
+    private int y;
+    private Type type =  Type.Bishop;
+    private Player player;
 
     public Bishop(int x, int y, Player player) {
         this.x = x;
@@ -87,6 +87,16 @@ public class Bishop implements Pieces{
     public void move(int newX, int newY) {
         x = newX;
         y = newY;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
     }
 
 }

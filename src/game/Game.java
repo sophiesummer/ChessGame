@@ -9,17 +9,29 @@ public class Game {
     public Board board;
 
 
-    public Game() {
+    public Game(int rank, int file) {
 
         player0 = new Player(0);
         player1 = new Player(1);
 
-        board = new Board(player0, player1);
+        board = new Board(rank, file, player0, player1);
 
 
     }
 
     public void start() {
 
+    }
+
+
+    public void over() {
+
+    }
+
+
+
+    public static void main(String args[]) {
+        Game game = new Game(8, 8);
+        game.start();
     }
 }

@@ -10,12 +10,14 @@ public class Board {
     public Pieces[][] board;
     private Player player0;
     private Player player1;
+    private int rank;
+    private int file;
 
 
     //initialize pieces position
 
-    public Board(Player player0, Player player1) {
-        board = new Pieces[8][8];
+    public Board(int rank, int file, Player player0, Player player1) {
+        board = new Pieces[rank][file];
 
         this.player0 = player0;
         this.player1 = player1;
@@ -28,7 +30,7 @@ public class Board {
     private List<Pieces> setPlayer0Pieces() {
         List<Pieces> player0Pieces = new ArrayList<>();
         //pawn
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < file; i++) {
             Pieces p0 = new Pawn(i, 1, player0);
             player0Pieces.add(p0);
             board[i][1] = p0;
@@ -107,26 +109,38 @@ public class Board {
     }
 
 
+    // check whether this step is valid;
     public boolean checkValid(Player player, Pieces piece, int newX, int newY) {
-        return isValidMove(piece, newX, newY) && isValidMove(piece, piece.moving(newX, newY));
+        return player.hasThePiece(piece)
+                && isValidMove(piece, newX, newY)
+                && isValidMove(piece, piece.moving(newX, newY));
     }
 
-    public void putPieces(Player player, Pieces piece, int newX, int newY) {
+
+    /**
+     * put the piece into correct position
+     * @param player
+     * @param piece
+     * @param newX
+     * @param newY
+     * @return  pieces which is removed from the board
+     */
+    public Pieces putPieces(Player player, Pieces piece, int newX, int newY) {
         if (!checkValid(player, piece, newX, newY)) {
-            return;
+            return null;
         }
 
+        Pieces prevPiece = board[newX][newY];
         if (board[newX][newY] != null) {
-            Player movingPlayer = piece.getPlayer();
-            Player standingPlayer = board[newX][newY].getPlayer();
-            Pieces prevPiece = board[newX][newY];
-
-            board[newX][newY] = piece;
-            piece.move(newX, newY);
-
+            Player standingPlayer = prevPiece.getPlayer();
             standingPlayer.pieces.remove(prevPiece); // remove defeated piece
         }
+
+        board[newX][newY] = piece;
+        piece.move(newX, newY);
+        return prevPiece;
     }
+
 
     // check whether the piece leap over others
     public boolean isValidMove(Pieces p, List<int[]> moves) {
@@ -156,32 +170,103 @@ public class Board {
             if (p instanceof Pawn) {
                 Pawn pawn = (Pawn)p;
                 if (movingPlayer.color == 0) {
-                    if (Math.abs(newX - pawn.x) == 1 && newY - pawn.y == 1) {
-                        return true;
-                    }
+                    return Math.abs(newX - pawn.getPosition()[0]) == 1
+                            && newY - pawn.getPosition()[1] == 1;
                 } else {
-                    if (Math.abs(newX - pawn.x) == 1 && newY - pawn.y == -1) {
-                        return true;
+                    return Math.abs(newX - pawn.getPosition()[0]) == 1
+                            && newY - pawn.getPosition()[1] == -1;
+                }
+            }
+        }
+        return p.isValidMove(newX, newY);
+    }
+
+
+    /**
+     * check whether exists pieces can capture opponent's king
+     * @param movingPlayer   the player who is now moving a piece.
+     * @param opponent the player who is now waiting for the next round
+     * @return
+     */
+    public boolean inCheck(Player movingPlayer, Player opponent) {
+        List<Pieces> opponentPieces = opponent.pieces;
+        int[] oppKingPos = new int[2];
+        for (Pieces opp: opponentPieces) {
+            if (opp instanceof King) {
+                oppKingPos = opp.getPosition();
+                break;
+            }
+        }
+
+        for (Pieces movingPiece: movingPlayer.pieces) {
+            if (checkValid(movingPlayer, movingPiece, oppKingPos[0], oppKingPos[1])) {
+                System.out.println("Check!");
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     *
+     * @param movingPlayer the player who is now moving a piece.
+     * @param opponent  the player who is now waiting for the next round
+     * @return whether opponent is lose.
+     */
+    public boolean isCheckmate(Player movingPlayer, Player opponent) {
+        return inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent);
+    }
+
+
+    /**
+     *
+     * @param movingPlayer the player who is now moving a piece.
+     * @param opponent  the player who is now waiting for the next round
+     * @return whether it's a draw.
+     */
+    public boolean isStalemate(Player movingPlayer, Player opponent) {
+        return !inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent);
+    }
+
+
+    /**
+     *  for all the possibilities, see whether the checked player still in check
+     *  in other word, check whether checkedPlayer has no legal move.
+     * @param movingPlayer  the player now is checking the opponent
+     * @param checkedPlayer  the player now is checked
+     * @return
+     */
+    private boolean hasLegalMove(Player movingPlayer, Player checkedPlayer) {
+        for (Pieces eachPieces : checkedPlayer.pieces) {
+            int[] prevPos = eachPieces.getPosition();
+            for (int i = 0; i < rank; i++) {
+                for (int j = 0; j < file; j++) {
+                    if (checkValid(checkedPlayer, eachPieces, i, j)) {
+                        Pieces removed = putPieces(checkedPlayer, eachPieces, i, j);
+                        if (!inCheck(movingPlayer, checkedPlayer)) {
+                            // go back to last step
+                            board[prevPos[0]][prevPos[1]] = eachPieces;
+                            eachPieces.setX(prevPos[0]);
+                            eachPieces.setY(prevPos[1]);
+                            if (removed != null) {
+                                board[i][j] = removed;
+                                removed.getPlayer().pieces.add(removed);
+                            }
+                            return false;
+                        }
+                        // go back to last step
+                        board[prevPos[0]][prevPos[1]] = eachPieces;
+                        eachPieces.setX(prevPos[0]);
+                        eachPieces.setY(prevPos[1]);
+                        if (removed != null) {
+                            board[i][j] = removed;
+                            removed.getPlayer().pieces.add(removed);
+                        }
                     }
                 }
             }
         }
-
-        if (!p.isValidMove(newX, newY)) { // pieces own rules
-            return false;
-        }
         return true;
     }
-
-    public boolean fight(Pieces coming, Pieces standing) {
-
-        return true;
-    }
-
-    public void updateBoard(Type p, int[] prevPos, int[] newPos) {
-
-    }
-
-
-
 }

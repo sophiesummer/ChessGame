@@ -7,18 +7,20 @@ public class Player {
 
     public int color;
     public List<Pieces> pieces;
+    public boolean isChecked;
 
     public Player(int color) {
         this.color = color;
+        isChecked = false;
     }
 
     public void getPieces(List<Pieces> pieces) {
         this.pieces = pieces;
     }
 
-    public boolean play(Type p, int prevX, int prevY, int newX, int newY) {
-        return false;
+    public boolean play(Pieces p, int prevX, int prevY, int newX, int newY) {
 
+        return false;
     }
 
     public boolean hasThePiece(Pieces p) {

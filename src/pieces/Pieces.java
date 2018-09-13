@@ -16,4 +16,8 @@ public interface Pieces {
 
     void move(int newX, int newY);
 
+    void setX(int x);
+
+    void setY(int y);
+
 }

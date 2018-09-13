@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Knight implements Pieces{
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
     public Type type = Type.Knight;
     public Player player;
 
@@ -49,5 +49,15 @@ public class Knight implements Pieces{
     public void move(int newX, int newY) {
         x = newX;
         y = newY;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
     }
 }
