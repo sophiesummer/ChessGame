@@ -9,7 +9,7 @@ public class King implements Pieces{
 
     private int x;
     private int y;
-    Type type = Type.King;
+    public Type type = Type.King;
     Player player;
 
     public King(int x, int y, Player player) {
@@ -22,6 +22,11 @@ public class King implements Pieces{
     @Override
     public int[] getPosition() {
         return new int[]{this.x, this.y};
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override

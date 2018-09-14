@@ -15,8 +15,8 @@ public class Game {
         this.rank = rank;
         this.file = file;
 
-        player0 = new Player(0);
-        player1 = new Player(1);
+        player0 = new Player(0, playBoard);
+        player1 = new Player(1, playBoard);
         playBoard = new Board(rank, file, player0, player1);
     }
 

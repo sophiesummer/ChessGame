@@ -25,6 +25,11 @@ public class Queen implements Pieces {
     }
 
     @Override
+    public Type getType() {
+        return type;
+    }
+
+    @Override
     public Player getPlayer() {
         return player;
     }

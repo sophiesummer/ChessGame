@@ -9,7 +9,7 @@ public class Bishop implements Pieces{
 
     private int x;
     private int y;
-    private Type type =  Type.Bishop;
+    public Type type =  Type.Bishop;
     private Player player;
 
     public Bishop(int x, int y, Player player) {
@@ -22,6 +22,11 @@ public class Bishop implements Pieces{
     @Override
     public int[] getPosition() {
         return new int[]{this.x, this.y};
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override

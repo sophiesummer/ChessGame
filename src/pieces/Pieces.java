@@ -8,6 +8,8 @@ public interface Pieces {
 
     int[] getPosition();
 
+    Type getType();
+
     Player getPlayer();
 
     boolean isValidMove(int newX, int newY);

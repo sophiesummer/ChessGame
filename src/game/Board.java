@@ -12,6 +12,7 @@ public class Board {
     private Player player1;
     private int rank;
     private int file;
+    private int count = 0; // count whether over 50 turns no captures, which is a stalemate.
 
 
     public Board(int rank, int file, Player player0, Player player1) {
@@ -21,7 +22,9 @@ public class Board {
 
         this.player0 = player0;
         this.player1 = player1;
+    }
 
+    public void setPieces() {
         player0.getPieces(setPlayer0Pieces());
         player1.getPieces(setPlayer1Pieces());
     }
@@ -64,6 +67,7 @@ public class Board {
         board[4][0] = king;
         player0Pieces.add(queen);
         player0Pieces.add(king);
+        player0.pieces = player0Pieces;
 
         return player0Pieces;
     }
@@ -75,7 +79,7 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             Pieces p1 = new Pawn(i, 6, player1);
             player1Pieces.add(p1);
-            board[i][1] = p1;
+            board[i][6] = p1;
         }
 
         Pieces rook1 = new Rook(0,7, player1);
@@ -105,51 +109,58 @@ public class Board {
         board[4][7] = king;
         player1Pieces.add(queen);
         player1Pieces.add(king);
+        player1.pieces = player1Pieces;
 
         return player1Pieces;
     }
 
 
     // check whether this step is valid;
-    public boolean checkValid(Player player, Pieces piece, int newX, int newY) {
+    public boolean checkValid(Player player, int prevX, int prevY, int newX, int newY) {
+        Pieces piece = board[prevX][prevY];
         return player.hasThePiece(piece)
                 && isValidMove(piece, newX, newY)
-                && isValidMove(piece, piece.moving(newX, newY));
+                && isValidMove(piece.moving(newX, newY));
     }
 
 
     /**
      * put the piece into correct position
      * @param player
-     * @param piece
+     * @param prevX
+     * @param prevY
      * @param newX
      * @param newY
      * @return  pieces which is removed from the board
      */
-    public Pieces putPieces(Player player, Pieces piece, int newX, int newY) {
-        if (!checkValid(player, piece, newX, newY)) {
+    public Pieces putPieces(Player player, int prevX, int prevY, int newX, int newY) {
+        Pieces piece = board[prevX][prevY];
+        if (!checkValid(player, prevX, prevY, newX, newY)) {
             return null;
         }
-
+        count++;
         Pieces prevPiece = board[newX][newY];
         if (board[newX][newY] != null) {
+            count = 0;
             Player standingPlayer = prevPiece.getPlayer();
             standingPlayer.pieces.remove(prevPiece); // remove defeated piece
         }
-
+        if (prevPiece instanceof King) {
+         prevPiece.getPlayer().isLose = true;   // lose the king
+        }
         board[newX][newY] = piece;
         piece.move(newX, newY);
+        board[prevX][prevY] = null;
         return prevPiece;
     }
 
 
     /**
      * check whether the piece leap over others
-     * @param p  moving pieces
      * @param moves  the path of its moving, which stores all the squares it past
      * @return
      */
-    private boolean isValidMove(Pieces p, List<int[]> moves) {
+    private boolean isValidMove(List<int[]> moves) {
         if (moves == null || moves.isEmpty()) {
             return true;
         }
@@ -205,8 +216,8 @@ public class Board {
         }
 
         for (Pieces movingPiece: movingPlayer.pieces) {
-            if (checkValid(movingPlayer, movingPiece, oppKingPos[0], oppKingPos[1])) {
-                System.out.println("Check!");
+            int[] pos = movingPiece.getPosition();
+            if (checkValid(movingPlayer, pos[0], pos[1], oppKingPos[0], oppKingPos[1])) {
                 return true;
             }
         }
@@ -232,7 +243,18 @@ public class Board {
      * @return whether it's a draw.
      */
     public boolean isStalemate(Player movingPlayer, Player opponent) {
-        return !inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent);
+        if (!inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent)) {
+          return true;
+        }
+        if (!player1.isLose && !player0.isLose
+                && player0.pieces.size() == 1 && player1.pieces.size() == 1) {
+            return true;
+        }
+
+        if (count > 50){
+            return true;
+        }
+        return false;
     }
 
 
@@ -248,8 +270,8 @@ public class Board {
             int[] prevPos = eachPieces.getPosition();
             for (int i = 0; i < rank; i++) {
                 for (int j = 0; j < file; j++) {
-                    if (checkValid(checkedPlayer, eachPieces, i, j)) {
-                        Pieces removed = putPieces(checkedPlayer, eachPieces, i, j);
+                    if (checkValid(checkedPlayer, prevPos[0], prevPos[1], i, j)) {
+                        Pieces removed = putPieces(checkedPlayer, prevPos[0], prevPos[1], i, j);
                         if (!inCheck(movingPlayer, checkedPlayer)) {
                             // go back to last step
                             board[prevPos[0]][prevPos[1]] = eachPieces;
@@ -259,7 +281,9 @@ public class Board {
                                 board[i][j] = removed;
                                 removed.getPlayer().pieces.add(removed);
                             }
-                            return false;
+                            System.out.print(prevPos[0]);
+                            System.out.println(prevPos[1]);
+                            return true;
                         }
                         // go back to last step
                         board[prevPos[0]][prevPos[1]] = eachPieces;
@@ -273,6 +297,6 @@ public class Board {
                 }
             }
         }
-        return true;
+        return false;
     }
 }

@@ -7,18 +7,24 @@ public class Player {
     public int color;
     public List<Pieces> pieces;
     public boolean isChecked;
+    public Board playBoard;
+    public boolean isLose;
 
-    public Player(int color) {
+    public Player(int color, Board playBoard) {
         this.color = color;
         isChecked = false;
+        this.playBoard = playBoard;
+        isLose = false;
     }
 
     public void getPieces(List<Pieces> pieces) {
         this.pieces = pieces;
     }
 
-    public boolean play(Pieces p, int prevX, int prevY, int newX, int newY) {
-        if (isChecked || !hasThePiece(p)) {
+
+
+    public boolean play(int prevX, int prevY, int newX, int newY) {
+        if (isChecked || !hasThePiece(playBoard.board[prevX][prevY])) {
             return false;
         }
         return true;

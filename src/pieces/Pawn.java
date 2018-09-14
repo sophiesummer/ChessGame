@@ -20,6 +20,11 @@ public class Pawn implements Pieces {
         this.player = player;
     }
 
+    @Override
+    public Type getType() {
+        return type;
+    }
+
 
     @Override
     public int[] getPosition() {
