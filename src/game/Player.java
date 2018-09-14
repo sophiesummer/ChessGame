@@ -22,14 +22,6 @@ public class Player {
     }
 
 
-
-    public boolean play(int prevX, int prevY, int newX, int newY) {
-        if (isChecked || !hasThePiece(playBoard.board[prevX][prevY])) {
-            return false;
-        }
-        return true;
-    }
-
     public boolean hasThePiece(Pieces p) {
         return pieces.contains(p);
     }

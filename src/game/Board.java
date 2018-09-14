@@ -232,7 +232,13 @@ public class Board {
      * @return whether opponent is lose.
      */
     public boolean isCheckmate(Player movingPlayer, Player opponent) {
-        return inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent);
+        if (inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent)) {
+            opponent.isLose = true;
+            System.out.println("CheckMate!");
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
