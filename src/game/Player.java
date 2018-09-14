@@ -21,7 +21,6 @@ public class Player {
         this.pieces = pieces;
     }
 
-
     public boolean hasThePiece(Pieces p) {
         return pieces.contains(p);
     }
