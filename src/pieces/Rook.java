@@ -33,6 +33,10 @@ public class Rook implements Pieces {
         return player;
     }
 
+    /**
+     * check whether rook is moved by its own rule;
+     * rook could only move along file or rank
+     */
     @Override
     public boolean isValidMove(int newX, int newY) {
         if (newX < 0 || newX > 7 || newY < 0 || newY > 7
@@ -47,6 +51,11 @@ public class Rook implements Pieces {
         return false;
     }
 
+    /**
+     * @param newX
+     * @param newY
+     * @return store the positions that rook has been leaped over
+     */
     @Override
     public List<int[]> moving(int newX, int newY) {
         List<int[]> steps = new ArrayList<>();

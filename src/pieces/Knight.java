@@ -34,6 +34,10 @@ public class Knight implements Pieces{
         return player;
     }
 
+    /**
+     * check whether knight is moved by its own rule;
+     * knight could only move in 'L' way
+     */
     @Override
     public boolean isValidMove(int newX, int newY) {
         if (newX < 0 || newX > 7 || newY < 0 || newY > 7
@@ -45,6 +49,11 @@ public class Knight implements Pieces{
                 || (Math.abs(newX - x) == 1 && Math.abs(newY - y) == 2) );
     }
 
+    /**
+     * @param newX
+     * @param newY
+     * @return knight can leap over other pieces
+     */
     @Override
     public List<int[]> moving(int newX, int newY) {
         return new ArrayList<>(); //empty

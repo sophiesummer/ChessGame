@@ -34,6 +34,10 @@ public class King implements Pieces{
         return player;
     }
 
+    /**
+     * check whether king is moved by its own rule;
+     * king could only move one step but can in all directions
+     */
     @Override
     public boolean isValidMove(int newX, int newY) {
         if (newX < 0 || newX > 7 || newY < 0 || newY > 7
@@ -44,6 +48,12 @@ public class King implements Pieces{
         return (Math.abs(newX - x) <= 1 && Math.abs(newY - y) <= 1);
     }
 
+    /**
+     *
+     * @param newX
+     * @param newY
+     * @return since king only move one step, there's no square to leap over
+     */
     @Override
     public List<int[]> moving(int newX, int newY) {
         return null; //empty

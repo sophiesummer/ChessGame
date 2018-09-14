@@ -12,7 +12,7 @@ public class Board {
     private Player player1;
     private int rank;
     private int file;
-    private int count = 0; // count whether over 50 turns no captures, which is a stalemate.
+    private int count = 0; // count whether over 100 turns no captures, which is a stalemate.
 
 
     public Board(int rank, int file, Player player0, Player player1) {
@@ -24,6 +24,9 @@ public class Board {
         this.player1 = player1;
     }
 
+    /**
+     * put all players' pieces and assign the pieces to them
+     */
     public void setPieces() {
         player0.getPieces(setPlayer0Pieces());
         player1.getPieces(setPlayer1Pieces());
@@ -125,8 +128,8 @@ public class Board {
 
 
     /**
-     * put the piece into correct position
-     * @param player
+     * put the piece into correct position and do capture
+     * @param player the player who is moving pieces
      * @param prevX
      * @param prevY
      * @param newX
@@ -138,17 +141,17 @@ public class Board {
         if (!checkValid(player, prevX, prevY, newX, newY)) {
             return null;
         }
-        count++;
+        count++; // count increasing for each turn
         Pieces prevPiece = board[newX][newY];
         if (board[newX][newY] != null) {
-            count = 0;
+            count = 0; // if capture happen, count from start.
             Player standingPlayer = prevPiece.getPlayer();
             standingPlayer.pieces.remove(prevPiece); // remove defeated piece
         }
         if (prevPiece instanceof King) {
          prevPiece.getPlayer().isLose = true;   // lose the king
         }
-        board[newX][newY] = piece;
+        board[newX][newY] = piece; //put pieces into the new position
         piece.move(newX, newY);
         board[prevX][prevY] = null;
         return prevPiece;
@@ -179,11 +182,11 @@ public class Board {
         if (board[newX][newY] != null) {
             Player movingPlayer = p.getPlayer();
             Player standingPlayer = board[newX][newY].getPlayer();
-            if (movingPlayer == standingPlayer) {
+            if (movingPlayer == standingPlayer) { // destination cannot be an ally piece
                 return false;
             }
 
-            //pawn capture case
+            //pawn capture case, it could only attack diagonally
             if (p instanceof Pawn) {
                 Pawn pawn = (Pawn)p;
                 if (movingPlayer.color == 0) {
@@ -217,6 +220,7 @@ public class Board {
 
         for (Pieces movingPiece: movingPlayer.pieces) {
             int[] pos = movingPiece.getPosition();
+            // check whether there's a piece can reach the opponent's king
             if (checkValid(movingPlayer, pos[0], pos[1], oppKingPos[0], oppKingPos[1])) {
                 return true;
             }
@@ -226,7 +230,7 @@ public class Board {
 
 
     /**
-     *
+     * opponent's king is in check and there's no legal move, then checkmate
      * @param movingPlayer the player who is now moving a piece.
      * @param opponent  the player who is now waiting for the next round
      * @return whether opponent is lose.
@@ -241,9 +245,10 @@ public class Board {
         }
     }
 
-
     /**
-     *
+     * king is not in check, but there's no legal move for opponent to remove danger.
+     * Or over 50 turns no capture happen
+     * Or both players only have their king piece
      * @param movingPlayer the player who is now moving a piece.
      * @param opponent  the player who is now waiting for the next round
      * @return whether it's a draw.
@@ -257,7 +262,7 @@ public class Board {
             return true;
         }
 
-        if (count > 50){
+        if (count > 100){
             return true;
         }
         return false;

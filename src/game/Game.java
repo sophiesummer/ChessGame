@@ -23,6 +23,12 @@ public class Game {
         isEnd = false;
     }
 
+    /**
+     * judge whether the game should end
+     * checkmate or stalemate happens
+     * @param moving player for this turn
+     * @param standing player who is waiting for next turn
+     */
     public void judge(Player moving, Player standing) {
         playBoard.isCheckmate(moving, standing);
         if (player0.isLose || player1.isLose) {

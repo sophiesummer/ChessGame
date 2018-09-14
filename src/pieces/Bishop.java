@@ -36,6 +36,7 @@ public class Bishop implements Pieces{
 
     /**
      * check whether bishop is moved by its own rule;
+     * bishop could only move diagonally
      */
     @Override
     public boolean isValidMove(int newX, int newY) {
@@ -48,16 +49,19 @@ public class Bishop implements Pieces{
     }
 
 
-    /* store the passing positions */
-    // a helper function for later check leap over other pieces
+    /**
+     *  store the passing positions
+     *  a helper function for later check leap over other pieces
+     */
     @Override
     public List<int[]> moving(int newX, int newY) {
         if (!isValidMove(newX, newY)) {
             return null;
         }
 
+        // go in which direction
         boolean addX = false;
-        boolean addY = false; // go in which direction
+        boolean addY = false;
 
         if (newX > x) {
             addX = true;

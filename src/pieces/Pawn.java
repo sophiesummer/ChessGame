@@ -25,7 +25,6 @@ public class Pawn implements Pieces {
         return type;
     }
 
-
     @Override
     public int[] getPosition() {
         return new int[]{this.x, this.y};
@@ -36,6 +35,11 @@ public class Pawn implements Pieces {
         return player;
     }
 
+
+    /**
+     * check whether pawn is moved by its own rule;
+     * pawn could only move forward, only one step except for the first move
+     */
     @Override
     public boolean isValidMove(int newX, int newY) {  // not include attack piece
         if (newX < 0 || newX > 7 || newY < 0 || newY > 7
@@ -43,6 +47,7 @@ public class Pawn implements Pieces {
             return false;
         }
 
+        // check move forward and the number of steps
         if (player.color == 0) {
             if (firstStep && newX == x && (newY - y == 1 || newY - y == 2)) {
                 return true;
@@ -63,6 +68,11 @@ public class Pawn implements Pieces {
         return false;
     }
 
+    /**
+     * @param newX
+     * @param newY
+     * @return only if pawn move two steps, we store the leaped over position
+     */
     @Override
     public List<int[]> moving(int newX, int newY) {
         List<int[]> steps = new ArrayList<>();

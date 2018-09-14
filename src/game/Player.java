@@ -17,6 +17,7 @@ public class Player {
         isLose = false;
     }
 
+    // assign pieces on the board to the player
     public void getPieces(List<Pieces> pieces) {
         this.pieces = pieces;
     }

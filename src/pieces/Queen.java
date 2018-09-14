@@ -34,6 +34,10 @@ public class Queen implements Pieces {
         return player;
     }
 
+    /**
+     * check whether queen is moved by its own rule;
+     * queen could move in all eight directions
+     */
     @Override
     public boolean isValidMove(int newX, int newY) {
         if (newX < 0 || newX > 7 || newY < 0 || newY > 7
@@ -47,6 +51,12 @@ public class Queen implements Pieces {
         return false;
     }
 
+    /**
+     *
+     * @param newX
+     * @param newY
+     * @return the positions that queen has leaped over
+     */
     @Override
     public List<int[]> moving(int newX, int newY) {
         List<int[]> steps = new ArrayList<>();

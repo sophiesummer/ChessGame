@@ -12,8 +12,10 @@ public interface Pieces {
 
     Player getPlayer();
 
+    // check pieces follow their own rules
     boolean isValidMove(int newX, int newY);
 
+    // store the leaping over positions, for later check
     List<int[]> moving(int newX, int newY);
 
     void move(int newX, int newY);
