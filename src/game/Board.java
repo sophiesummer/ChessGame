@@ -5,16 +5,38 @@ import pieces.Type;
 
 import java.util.*;
 
+/**
+ * Board Class contains game logic, piece move validation check
+ * and game end condition check
+ */
 public class Board {
 
+    /** two dimensional board */
     public Pieces[][] board;
+
+    /** the upper player */
     private Player player0;
+
+    /** the player locate downwards*/
     private Player player1;
+
+    /** the number of ranks */
     private int rank;
+
+    /** the number of files */
     private int file;
-    private int count = 0; // count whether over 100 turns no captures, which is a stalemate.
+
+    /** count whether over 100 turns no captures, which is a stalemate.*/
+    private int count = 0;
 
 
+    /**
+     * initialize board attributes
+     * @param rank the number of ranks
+     * @param file the number of files
+     * @param player0 the upper player
+     * @param player1 the downwards player
+     */
     public Board(int rank, int file, Player player0, Player player1) {
         this.rank = rank;
         this.file = file;
@@ -32,7 +54,10 @@ public class Board {
         player1.getPieces(setPlayer1Pieces());
     }
 
-    //initialize pieces position
+    /**
+     * initialize pieces position
+     * @return the list of pieces for player0
+     */
     private List<Pieces> setPlayer0Pieces() {
         List<Pieces> player0Pieces = new ArrayList<>();
         //pawn
@@ -74,6 +99,10 @@ public class Board {
         return player0Pieces;
     }
 
+    /**
+     * initialize pieces position
+     * @return the list of pieces for player1
+     */
     private List<Pieces> setPlayer1Pieces() {
         List<Pieces> player1Pieces = new ArrayList<>();
 
@@ -116,8 +145,15 @@ public class Board {
         return player1Pieces;
     }
 
-
-    // check whether this step is valid;
+    /**
+     * check whether this step is valid;
+     * @param player the player who is moving pieces
+     * @param prevX the start rank position
+     * @param prevY the start file position
+     * @param newX the destination of rank position
+     * @param newY the destination of file position
+     * @return whether this step is valid
+     */
     public boolean checkValid(Player player, int prevX, int prevY, int newX, int newY) {
         Pieces piece = board[prevX][prevY];
         return player.hasThePiece(piece)
@@ -129,10 +165,10 @@ public class Board {
     /**
      * put the piece into correct position and do capture
      * @param player the player who is moving pieces
-     * @param prevX
-     * @param prevY
-     * @param newX
-     * @param newY
+     * @param prevX the start rank position
+     * @param prevY the start file position
+     * @param newX the destination of rank position
+     * @param newY the destination of file position
      * @return  pieces which is removed from the board
      */
     public Pieces putPieces(Player player, int prevX, int prevY, int newX, int newY) {
@@ -183,8 +219,8 @@ public class Board {
 
     /**
      * check whether the piece leap over others
-     * @param moves  the path of its moving, which stores all the squares it past
-     * @return
+     * @param moves the path of its moving, which stores all the squares it past
+     * @return whether the piece illegally leap over other pieces
      */
     private boolean isValidMove(List<int[]> moves) {
         if (moves == null || moves.isEmpty()) {
@@ -199,7 +235,14 @@ public class Board {
         return true;
     }
 
-    // check whether the destination is valid
+    /**
+     * check whether the destination is valid,
+     * contains pawn capture validation check and hopper leap over check
+     * @param p the piece now is moving
+     * @param newX the destination of rank position
+     * @param newY the destination of file position
+     * @return whether the destination is valid;
+     */
     private boolean isValidMove(Pieces p, int newX, int newY) {
 
         if (board[newX][newY] != null) {
@@ -234,9 +277,9 @@ public class Board {
 
     /**
      * check whether exists pieces can capture opponent's king
-     * @param movingPlayer   the player who is now moving a piece.
+     * @param movingPlayer the player who is now moving a piece.
      * @param opponent the player who is now waiting for the next round
-     * @return
+     * @return whether the moving player can check opponent
      */
     public boolean inCheck(Player movingPlayer, Player opponent) {
         List<Pieces> opponentPieces = opponent.pieces;
@@ -300,11 +343,11 @@ public class Board {
 
 
     /**
-     *  for all the possibilities, see whether the checked player still in check
-     *  in other word, check whether checkedPlayer has no legal move.
+     * for all the possibilities, see whether the checked player still in check
+     * in other word, check whether checkedPlayer has no legal move.
      * @param movingPlayer  the player now is checking the opponent
      * @param checkedPlayer  the player now is checked
-     * @return
+     * @return whether there exists legal move that can remove in check danger
      */
     private boolean hasLegalMove(Player movingPlayer, Player checkedPlayer) {
         for (Pieces eachPieces : checkedPlayer.pieces) {

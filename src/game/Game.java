@@ -3,15 +3,30 @@ import java.util.*;
 
 public class Game {
 
+    /** the upper player */
     public Player player0;
+
+    /** the player locates downward*/
     public Player player1;
 
+    /** the board for this game*/
     public Board playBoard;
+
+    /** the number of rank on the board */
     public int rank;
+
+    /** the number of file on the board */
     public int file;
+
+    /** whether game is end */
     private boolean isEnd;
 
 
+    /**
+     * initialize game attributes
+     * @param rank the number of rank on the board
+     * @param file the number of file on the board
+     */
     public Game(int rank, int file) {
         this.rank = rank;
         this.file = file;
@@ -40,6 +55,10 @@ public class Game {
     }
 
 
+    /**
+     * game start interface
+     * @return whether game is end
+     */
     public boolean start() {
         System.out.println("Game start!");
 
