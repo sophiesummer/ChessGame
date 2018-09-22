@@ -3,6 +3,7 @@ package Test;
 import game.Game;
 import org.junit.jupiter.api.Test;
 import pieces.Rook;
+import pieces.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +45,18 @@ class RookTest {
         for (int i = 0; i < getPath.size(); i++) {
             assertArrayEquals(getPath.get(i), correctPath.get(i));
         }
+
+        getPath = testPiece.moving(-9, -9);
+        assertEquals(null, getPath);// invalid move test
+    }
+
+    @Test
+    void initialization() {
+        testPiece.setX(0);
+        testPiece.setY(0);
+        assertArrayEquals(testPiece.getPosition(), new int[]{0, 0});
+        testPiece.move(0, 7);
+        assertArrayEquals(testPiece.getPosition(), new int[]{0, 7});
+
     }
 }

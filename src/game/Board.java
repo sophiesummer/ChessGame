@@ -32,7 +32,6 @@ public class Board {
         player1.getPieces(setPlayer1Pieces());
     }
 
-
     //initialize pieces position
     private List<Pieces> setPlayer0Pieces() {
         List<Pieces> player0Pieces = new ArrayList<>();
@@ -148,6 +147,30 @@ public class Board {
             Player standingPlayer = prevPiece.getPlayer();
             standingPlayer.pieces.remove(prevPiece); // remove defeated piece
         }
+        // Wizard rules, which can capture its four surrounding opponents' pieces
+        if (piece instanceof Wizard) {
+            if (board[newX + 1][newY] != null
+                    && board[newX + 1][newY].getPlayer() != ((Wizard) piece).player) {
+                board[newX + 1][newY].getPlayer().pieces.remove(board[newX + 1][newY]);
+                board[newX + 1][newY] = null;
+            }
+            if (board[newX - 1][newY] != null
+                    && board[newX - 1][newY].getPlayer() != ((Wizard) piece).player) {
+                board[newX - 1][newY].getPlayer().pieces.remove(board[newX - 1][newY]);
+                board[newX - 1][newY] = null;
+            }
+            if (board[newX][newY + 1] != null
+                    && board[newX][newY + 1].getPlayer() != ((Wizard) piece).player) {
+                board[newX][newY + 1].getPlayer().pieces.remove(board[newX][newY + 1]);
+                board[newX][newY + 1] = null;
+            }
+            if (board[newX][newY - 1] != null
+                    && board[newX][newY - 1].getPlayer() != ((Wizard) piece).player) {
+                board[newX][newY - 1].getPlayer().pieces.remove(board[newX][newY - 1]);
+                board[newX][newY - 1] = null;
+            }
+        }
+
         if (prevPiece instanceof King) {
          prevPiece.getPlayer().isLose = true;   // lose the king
         }
@@ -196,6 +219,13 @@ public class Board {
                     return Math.abs(newX - pawn.getPosition()[0]) == 1
                             && newY - pawn.getPosition()[1] == -1;
                 }
+            }
+        }
+        //Hopper rules, must jump over a piece
+        if (p instanceof Hopper && p.isValidMove(newX, newY)) {
+            int[] pos = p.getPosition();
+            if (board[(newX + pos[0]) / 2][(newY + pos[1]) / 2] == null) {
+                return false;
             }
         }
         return p.isValidMove(newX, newY);

@@ -29,17 +29,18 @@ public class Game {
      * @param moving player for this turn
      * @param standing player who is waiting for next turn
      */
-    public void judge(Player moving, Player standing) {
+    public boolean judge(Player moving, Player standing) {
         playBoard.isCheckmate(moving, standing);
         if (player0.isLose || player1.isLose) {
             isEnd = true;
         } else if (playBoard.isStalemate(moving, standing)) {
             isEnd = true;
         }
+        return isEnd;
     }
 
 
-    public void start() {
+    public boolean start() {
         System.out.println("Game start!");
 
         // decide who goes first
@@ -52,10 +53,7 @@ public class Game {
         }
 
         while (!isEnd) {
-            int player0StartX;
-            int player0StartY;
-            int player0EndX;
-            int player0EndY;
+            int player0StartX, player0StartY, player0EndX, player0EndY;
 
             System.out.println("player0: input the start position and destination: ");
             do {
@@ -72,10 +70,7 @@ public class Game {
                 continue;
             }
 
-            int player1StartX;
-            int player1StartY;
-            int player1EndX;
-            int player1EndY;
+            int player1StartX, player1StartY, player1EndX, player1EndY;
 
             System.out.println("player1: input the start position and destination: ");
             do {
@@ -96,11 +91,12 @@ public class Game {
         } else {
             System.out.println("Draw!!");
         }
+        return isEnd;
     }
 
-
-    public static void main(String args[]) {
-        Game game = new Game(8, 8);
-        game.start();
-    }
+//
+//    public static void main(String args[]) {
+//        Game game = new Game(8, 8);
+//        game.start();
+//    }
 }

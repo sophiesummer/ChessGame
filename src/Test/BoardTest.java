@@ -2,7 +2,6 @@ package Test;
 
 import game.Board;
 import game.Game;
-import game.Player;
 import org.junit.jupiter.api.Test;
 import pieces.*;
 
@@ -13,15 +12,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
 
-    @Test
-    void checkValidationAndMovePieces() {
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
+    private Game game;
+    private Board playBoard;
+    private List<Pieces> player0Pieces;
+    private List<Pieces> player1Pieces;
 
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
+    BoardTest() {
+        game = new Game(8, 8);
+        playBoard = new Board(game.rank, game.file, game.player0, game.player1);
+        game.playBoard = playBoard;
+        player0Pieces = new ArrayList<>();
+        player1Pieces = new ArrayList<>();
         game.player0.pieces = player0Pieces;
         game.player1.pieces = player1Pieces;
+    }
+
+    @Test
+    void checkValidationAndMovePieces() {
 
         // add pieces to player0
         Pieces rookPlayer0 = new Rook(3, 3, game.player0);
@@ -40,6 +47,13 @@ class BoardTest {
         playBoard.board[5][2] = bishopPlayer0;
         player0Pieces.add(bishopPlayer0);
 
+        Pieces hopperPlayer0 = new Hopper(4, 1, game.player0);
+        playBoard.board[4][1] = hopperPlayer0;
+        player0Pieces.add(hopperPlayer0);
+
+        Pieces wizardPlayer0 = new Wizard(2, 3, game.player0);
+        playBoard.board[2][3] = wizardPlayer0;
+        player0Pieces.add(wizardPlayer0);
 
         // add pieces to player1
         Pieces queenPlayer1 = new Queen(1, 5, game.player1);
@@ -62,6 +76,13 @@ class BoardTest {
         playBoard.board[4][2] = rookPlayer1;
         player1Pieces.add(rookPlayer1);
 
+        Pieces hopperPlayer1 = new Hopper(0, 5, game.player1);
+        playBoard.board[0][5] = hopperPlayer1;
+        player1Pieces.add(hopperPlayer1);
+
+        Pieces wizardPlayer1 = new Wizard(1, 4, game.player1);
+        playBoard.board[1][4] = wizardPlayer1;
+        player1Pieces.add(wizardPlayer1);
 
 
         // test pieces cannot leap over other pieces
@@ -75,6 +96,14 @@ class BoardTest {
         // test destination stands ally pieces
         assertFalse(playBoard.checkValid(game.player0, 3, 2,  5, 1));
         assertFalse(playBoard.checkValid(game.player1, 1, 5,  3, 5));
+
+        // test Hopper can jump over a piece
+        assertTrue(hopperPlayer0.isValidMove(4, 3));
+        assertTrue(playBoard.board[4][1].getType() == Type.Hopper);
+        assertTrue(playBoard.checkValid(game.player0, 4, 1, 4, 3));
+        assertTrue(playBoard.checkValid(game.player1, 0, 5, 2, 5));
+        playBoard.putPieces(game.player1, 0, 5, 2, 5);
+        assertTrue(playBoard.board[2][5].getType() == Type.Hopper);
 
         // test Pawn attack
         // cannot attack along file
@@ -102,12 +131,21 @@ class BoardTest {
         assertEquals(pawnPlayer0, playBoard.board[4][2]); // pawn goes to the new position
         assertEquals(null, playBoard.board[5][2]); // previous position has no pieces now
         assertArrayEquals(pawnPlayer0.getPosition(), new int[]{4, 2}); // pawn's position has been updated
+
+
+        // test Wizard valid move and capture
+        assertTrue(playBoard.checkValid(game.player1, 1, 4, 2, 4));
+        playBoard.putPieces(game.player1, 1, 4, 2, 4);
+        assertTrue(playBoard.board[2][4].getType() == Type.Wizard);
+        assertTrue(playBoard.board[2][4].getPlayer() == game.player1);
+        assertArrayEquals(new int[]{2, 4}, playBoard.board[2][4].getPosition());
+        assertTrue(playBoard.board[2][3] == null);
+
     }
 
     @Test
     void isSetPiecesCorrect() {
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
+
         playBoard.setPieces();
         for (int i = 0; i < 8; i++) {
             assertEquals(playBoard.board[i][1].getType(), Type.Pawn);
@@ -115,14 +153,23 @@ class BoardTest {
         }
         assertEquals(playBoard.board[5][7].getType(), Type.Bishop);
         assertEquals(playBoard.board[5][7].getPlayer(), game.player1);
+        assertEquals(playBoard.board[0][7].getType(), Type.Rook);
+        assertEquals(playBoard.board[0][7].getPlayer(), game.player1);
+
+        assertEquals(playBoard.board[4][0].getType(), Type.King);
+        assertEquals(playBoard.board[4][0].getPlayer(), game.player0);
+        assertEquals(playBoard.board[3][0].getType(), Type.Queen);
+        assertEquals(playBoard.board[3][0].getPlayer(), game.player0);
+
+        assertEquals(playBoard.board[1][0].getType(), Type.Knight);
+        assertEquals(playBoard.board[1][0].getPlayer(), game.player0);
     }
 
     @Test
     void isCheckmateCase1() {
         // Fool's Mate case
         // https://en.wikipedia.org/wiki/Checkmate#Examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
+
         playBoard.setPieces();
         // first round
         assertTrue(playBoard.checkValid(game.player0, 4, 1, 4, 3));
@@ -144,13 +191,6 @@ class BoardTest {
     void isCheckmateCase2() {
         // D. Byrne vs. Fischer case
         // https://en.wikipedia.org/wiki/Checkmate#Examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
-
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
-        game.player0.pieces = player0Pieces;
-        game.player1.pieces = player1Pieces;
 
         // add pieces to player0
         Pieces kingPlayer0 = new King(6, 1, game.player0);
@@ -213,19 +253,14 @@ class BoardTest {
         player1Pieces.add(pawn1Player1);
 
         assertTrue(playBoard.isCheckmate(game.player0, game.player1));
+        assertTrue(game.judge(game.player0, game.player1));
+        assertTrue(game.start());
     }
 
     @Test
     void isCheckmateCase3() {
         // Checkmate with a rook case
         // https://en.wikipedia.org/wiki/Checkmate#Examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
-
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
-        game.player0.pieces = player0Pieces;
-        game.player1.pieces = player1Pieces;
 
         // add pieces to player0
         Pieces kingPlayer0 = new King(7, 3, game.player0);
@@ -240,8 +275,12 @@ class BoardTest {
         Pieces rookPlayer1 = new Rook(7, 7, game.player1);
         playBoard.board[7][7] = rookPlayer1;
         player1Pieces.add(rookPlayer1);
+        player1Pieces.add(rookPlayer1);
+
 
         assertTrue(playBoard.isCheckmate(game.player1, game.player0));
+        assertTrue(game.judge(game.player0, game.player1));
+        assertTrue(game.start());
     }
 
 
@@ -249,13 +288,6 @@ class BoardTest {
     void isStalemateCase1() {
         // the first simple example on wiki
         // https://en.wikipedia.org/wiki/Stalemate#Simple_examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
-
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
-        game.player0.pieces = player0Pieces;
-        game.player1.pieces = player1Pieces;
 
         // add pieces to player0
         Pieces kingPlayer0 = new King(5, 0, game.player0);
@@ -278,13 +310,6 @@ class BoardTest {
     void isStalemateCase2() {
         // the second simple example on wiki
         // https://en.wikipedia.org/wiki/Stalemate#Simple_examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
-
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
-        game.player0.pieces = player0Pieces;
-        game.player1.pieces = player1Pieces;
 
         // add pieces to player0
         Pieces kingPlayer0 = new King(0, 0, game.player0);
@@ -311,13 +336,6 @@ class BoardTest {
     void isStalemateCase3() {
         // the third simple example on wiki
         // https://en.wikipedia.org/wiki/Stalemate#Simple_examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
-
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
-        game.player0.pieces = player0Pieces;
-        game.player1.pieces = player1Pieces;
 
         // add pieces to player0
         Pieces kingPlayer0 = new King(0, 7, game.player0);
@@ -340,13 +358,6 @@ class BoardTest {
     void isStalemateCase4() {
         // the fifth simple example on wiki
         // https://en.wikipedia.org/wiki/Stalemate#Simple_examples
-        Game game = new Game(8, 8);
-        Board playBoard = new Board(game.rank, game.file, game.player0, game.player1);
-
-        List<Pieces> player0Pieces = new ArrayList<>();
-        List<Pieces> player1Pieces = new ArrayList<>();
-        game.player0.pieces = player0Pieces;
-        game.player1.pieces = player1Pieces;
 
         // add pieces to player0
         Pieces kingPlayer0 = new King(0, 0, game.player0);

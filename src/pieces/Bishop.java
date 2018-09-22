@@ -41,7 +41,7 @@ public class Bishop implements Pieces{
     @Override
     public boolean isValidMove(int newX, int newY) {
         if (newX < 0 || newX > 7 || newY < 0 || newY > 7
-                || x == newX || y == newY) {
+                || (x == newX && y == newY)) {
             return false;
         }
 
@@ -53,6 +53,7 @@ public class Bishop implements Pieces{
      *  store the passing positions
      *  a helper function for later check leap over other pieces
      */
+
     @Override
     public List<int[]> moving(int newX, int newY) {
         if (!isValidMove(newX, newY)) {

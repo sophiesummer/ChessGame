@@ -58,6 +58,9 @@ public class Rook implements Pieces {
      */
     @Override
     public List<int[]> moving(int newX, int newY) {
+        if (!isValidMove(newX, newY)) {
+            return null;
+        }
         List<int[]> steps = new ArrayList<>();
 
         int currX = x;
