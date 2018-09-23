@@ -15,8 +15,8 @@ class PawnTest {
 
     public PawnTest() {
         game = new Game(8, 8);
-        testPiece0 = new Pawn(3, 1, game.player0);
-        testPiece1 = new Pawn(3, 6, game.player1);
+        testPiece0 = new Pawn(3, 1, game.player0, game.playBoard);
+        testPiece1 = new Pawn(3, 6, game.player1, game.playBoard);
         game.playBoard.board[3][1] = testPiece0;
     }
 
@@ -47,7 +47,7 @@ class PawnTest {
         List<int[]> getPath = testPiece0.moving(3, 4);
         assertTrue(getPath.isEmpty()); // move one step, do not store path
 
-        testPiece0 = new Pawn(3, 1, game.player0); // create a new piece
+        testPiece0 = new Pawn(3, 1, game.player0, game.playBoard); // create a new piece
         getPath = testPiece0.moving(3, 3); // first step move two steps
         assertEquals(1, getPath.size());
         assertArrayEquals(new int[]{3, 2}, getPath.get(0));

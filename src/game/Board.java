@@ -62,7 +62,7 @@ public class Board {
         List<Pieces> player0Pieces = new ArrayList<>();
         //pawn
         for (int i = 0; i < file; i++) {
-            Pieces p0 = new Pawn(i, 1, player0);
+            Pieces p0 = new Pawn(i, 1, player0, this);
             player0Pieces.add(p0);
             board[i][1] = p0;
         }
@@ -108,7 +108,7 @@ public class Board {
 
         //pawn
         for (int i = 0; i < 8; i++) {
-            Pieces p1 = new Pawn(i, 6, player1);
+            Pieces p1 = new Pawn(i, 6, player1, this);
             player1Pieces.add(p1);
             board[i][6] = p1;
         }
@@ -236,8 +236,7 @@ public class Board {
     }
 
     /**
-     * check whether the destination is valid,
-     * contains pawn capture validation check and hopper leap over check
+     * check whether the destination is valid
      * @param p the piece now is moving
      * @param newX the destination of rank position
      * @param newY the destination of file position
@@ -249,25 +248,6 @@ public class Board {
             Player movingPlayer = p.getPlayer();
             Player standingPlayer = board[newX][newY].getPlayer();
             if (movingPlayer == standingPlayer) { // destination cannot be an ally piece
-                return false;
-            }
-
-            //pawn capture case, it could only attack diagonally
-            if (p instanceof Pawn) {
-                Pawn pawn = (Pawn)p;
-                if (movingPlayer.color == 0) {
-                    return Math.abs(newX - pawn.getPosition()[0]) == 1
-                            && newY - pawn.getPosition()[1] == 1;
-                } else {
-                    return Math.abs(newX - pawn.getPosition()[0]) == 1
-                            && newY - pawn.getPosition()[1] == -1;
-                }
-            }
-        }
-        //Hopper rules, must jump over a piece
-        if (p instanceof Hopper && p.isValidMove(newX, newY)) {
-            int[] pos = p.getPosition();
-            if (board[(newX + pos[0]) / 2][(newY + pos[1]) / 2] == null) {
                 return false;
             }
         }

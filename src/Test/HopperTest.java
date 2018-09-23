@@ -2,7 +2,7 @@ package Test;
 
 import game.Game;
 import org.junit.jupiter.api.Test;
-import pieces.Hopper;
+import pieces.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,8 +13,20 @@ class HopperTest {
 
     public HopperTest() {
         game = new Game(8, 8);
-        testPiece = new Hopper(3, 3, game.player0);
+        testPiece = new Hopper(3, 3, game.player0, game.playBoard);
         game.playBoard.board[3][3] = testPiece;
+
+        Pieces rookPlayer0 = new Rook(4, 3, game.player0);
+        game.playBoard.board[4][3] = rookPlayer0;
+
+        Pieces knightPlayer0 = new Knight(2, 3, game.player0);
+        game.playBoard.board[2][3] = knightPlayer0;
+
+        Pieces pawnPlayer0 = new Pawn(3, 2, game.player0, game.playBoard);
+        game.playBoard.board[3][2] = pawnPlayer0;
+
+        Pieces bishopPlayer0 = new Bishop(3, 4, game.player0);
+        game.playBoard.board[3][4] = bishopPlayer0;
     }
 
     @Test

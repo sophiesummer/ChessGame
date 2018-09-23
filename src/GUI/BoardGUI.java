@@ -35,7 +35,6 @@ public class BoardGUI extends JPanel {
 
                 if (i == 1) {
                     btn.setIcon(new ImageIcon("img/black_pawn.gif"));
-
                 }
                 if (i == 6) {
                     btn.setIcon(new ImageIcon("img/white_pawn.gif"));

@@ -39,7 +39,7 @@ class BoardTest {
         playBoard.board[3][2] = knightPlayer0;
         player0Pieces.add(knightPlayer0);
 
-        Pieces pawnPlayer0 = new Pawn(5, 1, game.player0);
+        Pieces pawnPlayer0 = new Pawn(5, 1, game.player0, playBoard);
         playBoard.board[5][1] = pawnPlayer0;
         player0Pieces.add(pawnPlayer0);
 
@@ -47,7 +47,7 @@ class BoardTest {
         playBoard.board[5][2] = bishopPlayer0;
         player0Pieces.add(bishopPlayer0);
 
-        Pieces hopperPlayer0 = new Hopper(4, 1, game.player0);
+        Pieces hopperPlayer0 = new Hopper(4, 1, game.player0, playBoard);
         playBoard.board[4][1] = hopperPlayer0;
         player0Pieces.add(hopperPlayer0);
 
@@ -64,7 +64,7 @@ class BoardTest {
         playBoard.board[3][5] = knightPlayer1;
         player1Pieces.add(knightPlayer1);
 
-        Pieces pawnPlayer1 = new Pawn(5, 6, game.player1);
+        Pieces pawnPlayer1 = new Pawn(5, 6, game.player1, playBoard);
         playBoard.board[5][6] = pawnPlayer1;
         player1Pieces.add(pawnPlayer1);
 
@@ -76,7 +76,7 @@ class BoardTest {
         playBoard.board[4][2] = rookPlayer1;
         player1Pieces.add(rookPlayer1);
 
-        Pieces hopperPlayer1 = new Hopper(0, 5, game.player1);
+        Pieces hopperPlayer1 = new Hopper(0, 5, game.player1, playBoard);
         playBoard.board[0][5] = hopperPlayer1;
         player1Pieces.add(hopperPlayer1);
 
@@ -197,23 +197,23 @@ class BoardTest {
         playBoard.board[6][1] = kingPlayer0;
         player0Pieces.add(kingPlayer0);
 
-        Pieces pawn0Player0 = new Pawn(5, 1, game.player0);
+        Pieces pawn0Player0 = new Pawn(5, 1, game.player0, playBoard);
         playBoard.board[5][1] = pawn0Player0;
         player0Pieces.add(pawn0Player0);
 
-        Pieces pawn1Player0 = new Pawn(6, 2, game.player0);
+        Pieces pawn1Player0 = new Pawn(6, 2, game.player0, playBoard);
         playBoard.board[6][2] = pawn1Player0;
         player0Pieces.add(pawn1Player0);
 
-        Pieces pawn2Player0 = new Pawn(7, 3, game.player0);
+        Pieces pawn2Player0 = new Pawn(7, 3, game.player0, playBoard);
         playBoard.board[7][3] = pawn2Player0;
         player0Pieces.add(pawn2Player0);
 
-        Pieces pawn3Player0 = new Pawn(2, 2, game.player0);
+        Pieces pawn3Player0 = new Pawn(2, 2, game.player0, playBoard);
         playBoard.board[2][2] = pawn3Player0;
         player0Pieces.add(pawn3Player0);
 
-        Pieces pawn4Player0 = new Pawn(1, 3, game.player0);
+        Pieces pawn4Player0 = new Pawn(1, 3, game.player0, playBoard);
         playBoard.board[1][3] = pawn4Player0;
         player0Pieces.add(pawn4Player0);
 
@@ -244,11 +244,11 @@ class BoardTest {
         playBoard.board[4][3] = knightPlayer1;
         player1Pieces.add(knightPlayer1);
 
-        Pieces pawn0Player1 = new Pawn(7, 4, game.player1);
+        Pieces pawn0Player1 = new Pawn(7, 4, game.player1, playBoard);
         playBoard.board[7][4] = pawn0Player1;
         player1Pieces.add(pawn0Player1);
 
-        Pieces pawn1Player1 = new Pawn(6, 6, game.player1);
+        Pieces pawn1Player1 = new Pawn(6, 6, game.player1, playBoard);
         playBoard.board[6][6] = pawn1Player1;
         player1Pieces.add(pawn1Player1);
 
@@ -299,7 +299,7 @@ class BoardTest {
         playBoard.board[5][2] = kingPlayer1;
         player1Pieces.add(kingPlayer1);
 
-        Pieces pawnPlayer1 = new Pawn(5, 1, game.player1);
+        Pieces pawnPlayer1 = new Pawn(5, 1, game.player1, playBoard);
         playBoard.board[5][1] = pawnPlayer1;
         player1Pieces.add(pawnPlayer1);
 
@@ -370,11 +370,11 @@ class BoardTest {
         playBoard.board[0][2] = kingPlayer1;
         player1Pieces.add(kingPlayer1);
 
-        Pieces pawnPlayer1 = new Pawn(0, 1, game.player1);
+        Pieces pawnPlayer1 = new Pawn(0, 1, game.player1, playBoard);
         playBoard.board[0][1] = pawnPlayer1;
         player1Pieces.add(pawnPlayer1);
 
-        Pieces queenPlayer1 = new Pawn(5, 4, game.player1);
+        Pieces queenPlayer1 = new Pawn(5, 4, game.player1, playBoard);
         playBoard.board[5][4] = queenPlayer1;
         player1Pieces.add(queenPlayer1);
 

@@ -1,5 +1,6 @@
 package pieces;
 
+import game.Board;
 import game.Player;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
  */
 public class Hopper extends Pieces {
 
+    /** the board this piece is moving on */
+    private Board playBoard;
 
     /**
      * initialize hopper attributes
@@ -20,9 +23,10 @@ public class Hopper extends Pieces {
      * @param y the initial file position
      * @param player the player piece belong to
      */
-    public Hopper(int x, int y, Player player) {
+    public Hopper(int x, int y, Player player, Board playBoard) {
         super(x, y, player);
         type = Type.Hopper;
+        this.playBoard = playBoard;
     }
 
     /**
@@ -38,8 +42,11 @@ public class Hopper extends Pieces {
                 || (x == newX && y == newY)) {
             return false;
         }
-        return (x == newX && Math.abs(newY - y) == 2)
-                || (y == newY && Math.abs(x - newX) == 2);
+        if (!((x == newX && Math.abs(newY - y) == 2)
+                || (y == newY && Math.abs(x - newX) == 2))) {
+            return false;
+        }
+        return playBoard.board[(newX + x) / 2][(newY + y) / 2] != null;
     }
 
     /**

@@ -1,6 +1,6 @@
 package pieces;
 
-import game.Player;
+import game.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,19 @@ public class Pawn extends Pieces {
     /** the flag to ensure whether this Pawn has moved before */
     private boolean firstStep = true;
 
+    /** the board this piece is moving on */
+    private Board playBoard;
+
     /**
      * initialize pawn attributes
      * @param x the initial rank position
      * @param y the initial file position
      * @param player the player piece belong to
      */
-    public Pawn(int x, int y, Player player) {
+    public Pawn(int x, int y, Player player, Board playBoard) {
         super(x, y, player);
         type = Type.Pawn;
+        this.playBoard = playBoard;
     }
 
 
@@ -46,25 +50,23 @@ public class Pawn extends Pieces {
             return false;
         }
 
-        // check move forward and the number of steps
-        if (player.color == 0) {
-            if (firstStep && newX == x && (newY - y == 1 || newY - y == 2)) {
-                return true;
-            }
-
-            if (!firstStep && newX == x && newY - y == 1) {
-                return true;
+        //pawn capture case, it could only attack diagonally
+        if (playBoard.board[newX][newY] != null) {
+            if (player.color == 0) {
+                return Math.abs(newX - x) == 1 && newY - y == 1;
+            } else {
+                return Math.abs(newX - x) == 1 && newY - y == -1;
             }
         } else {
-            if (firstStep && newX == x && (newY - y == -1 || newY - y == -2)) {
-                return true;
-            }
-
-            if (!firstStep && newX == x && newY - y == -1) {
-                return true;
+            // check move forward and the number of steps
+            if (player.color == 0) {
+                return (firstStep && newX == x && (newY - y == 1 || newY - y == 2))
+                        || (!firstStep && newX == x && newY - y == 1);
+            } else {
+                return (firstStep && newX == x && (newY - y == -1 || newY - y == -2))
+                        || (!firstStep && newX == x && newY - y == -1);
             }
         }
-        return false;
     }
 
     /**
@@ -94,7 +96,5 @@ public class Pawn extends Pieces {
         x = newX;
         y = newY;
     }
-
-
 
 }
