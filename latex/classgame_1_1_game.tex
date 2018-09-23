@@ -1,0 +1,103 @@
+\hypertarget{classgame_1_1_game}{}\section{game.\+Game Class Reference}
+\label{classgame_1_1_game}\index{game.\+Game@{game.\+Game}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgame_1_1_game_add3e226871fd6c2b2e9b2f2d4cee4e94}{Game}} (int \mbox{\hyperlink{classgame_1_1_game_a7b89934f8f5f80ac47eb7b55f643d081}{rank}}, int \mbox{\hyperlink{classgame_1_1_game_ae0ed20be94f9ee5b87550ae2576ce891}{file}})
+\item 
+boolean \mbox{\hyperlink{classgame_1_1_game_a4020b63689c4aaaa1b67dc458ff2fbee}{judge}} (\mbox{\hyperlink{classgame_1_1_player}{Player}} moving, \mbox{\hyperlink{classgame_1_1_player}{Player}} standing)
+\item 
+boolean \mbox{\hyperlink{classgame_1_1_game_a7f87abb7baa5fa13ac53da8f534f79bd}{start}} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgame_1_1_player}{Player}} \mbox{\hyperlink{classgame_1_1_game_a28888dea5fdb92292566492315e4d27b}{player0}}
+\item 
+\mbox{\hyperlink{classgame_1_1_player}{Player}} \mbox{\hyperlink{classgame_1_1_game_ae4a1dc482dba322c7a5d3955efe01c81}{player1}}
+\item 
+\mbox{\hyperlink{classgame_1_1_board}{Board}} \mbox{\hyperlink{classgame_1_1_game_ae5a12a35960e274e9eac5ac382beb1b3}{play\+Board}}
+\item 
+int \mbox{\hyperlink{classgame_1_1_game_a7b89934f8f5f80ac47eb7b55f643d081}{rank}}
+\item 
+int \mbox{\hyperlink{classgame_1_1_game_ae0ed20be94f9ee5b87550ae2576ce891}{file}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classgame_1_1_game_add3e226871fd6c2b2e9b2f2d4cee4e94}\label{classgame_1_1_game_add3e226871fd6c2b2e9b2f2d4cee4e94}} 
+\index{game\+::\+Game@{game\+::\+Game}!Game@{Game}}
+\index{Game@{Game}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{Game()}{Game()}}
+{\footnotesize\ttfamily game.\+Game.\+Game (\begin{DoxyParamCaption}\item[{int}]{rank,  }\item[{int}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+initialize game attributes 
+\begin{DoxyParams}{Parameters}
+{\em rank} & the number of rank on the board \\
+\hline
+{\em file} & the number of file on the board \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classgame_1_1_game_a4020b63689c4aaaa1b67dc458ff2fbee}\label{classgame_1_1_game_a4020b63689c4aaaa1b67dc458ff2fbee}} 
+\index{game\+::\+Game@{game\+::\+Game}!judge@{judge}}
+\index{judge@{judge}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{judge()}{judge()}}
+{\footnotesize\ttfamily boolean game.\+Game.\+judge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgame_1_1_player}{Player}}}]{moving,  }\item[{\mbox{\hyperlink{classgame_1_1_player}{Player}}}]{standing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+judge whether the game should end checkmate or stalemate happens 
+\begin{DoxyParams}{Parameters}
+{\em moving} & player for this turn \\
+\hline
+{\em standing} & player who is waiting for next turn \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classgame_1_1_game_a7f87abb7baa5fa13ac53da8f534f79bd}\label{classgame_1_1_game_a7f87abb7baa5fa13ac53da8f534f79bd}} 
+\index{game\+::\+Game@{game\+::\+Game}!start@{start}}
+\index{start@{start}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily boolean game.\+Game.\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+game start interface \begin{DoxyReturn}{Returns}
+whether game is end 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classgame_1_1_game_ae0ed20be94f9ee5b87550ae2576ce891}\label{classgame_1_1_game_ae0ed20be94f9ee5b87550ae2576ce891}} 
+\index{game\+::\+Game@{game\+::\+Game}!file@{file}}
+\index{file@{file}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{file}{file}}
+{\footnotesize\ttfamily int game.\+Game.\+file}
+
+the number of file on the board \mbox{\Hypertarget{classgame_1_1_game_ae5a12a35960e274e9eac5ac382beb1b3}\label{classgame_1_1_game_ae5a12a35960e274e9eac5ac382beb1b3}} 
+\index{game\+::\+Game@{game\+::\+Game}!play\+Board@{play\+Board}}
+\index{play\+Board@{play\+Board}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{play\+Board}{playBoard}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classgame_1_1_board}{Board}} game.\+Game.\+play\+Board}
+
+the board for this game \mbox{\Hypertarget{classgame_1_1_game_a28888dea5fdb92292566492315e4d27b}\label{classgame_1_1_game_a28888dea5fdb92292566492315e4d27b}} 
+\index{game\+::\+Game@{game\+::\+Game}!player0@{player0}}
+\index{player0@{player0}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{player0}{player0}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classgame_1_1_player}{Player}} game.\+Game.\+player0}
+
+the upper player \mbox{\Hypertarget{classgame_1_1_game_ae4a1dc482dba322c7a5d3955efe01c81}\label{classgame_1_1_game_ae4a1dc482dba322c7a5d3955efe01c81}} 
+\index{game\+::\+Game@{game\+::\+Game}!player1@{player1}}
+\index{player1@{player1}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{player1}{player1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classgame_1_1_player}{Player}} game.\+Game.\+player1}
+
+the player locates downward \mbox{\Hypertarget{classgame_1_1_game_a7b89934f8f5f80ac47eb7b55f643d081}\label{classgame_1_1_game_a7b89934f8f5f80ac47eb7b55f643d081}} 
+\index{game\+::\+Game@{game\+::\+Game}!rank@{rank}}
+\index{rank@{rank}!game\+::\+Game@{game\+::\+Game}}
+\subsubsection{\texorpdfstring{rank}{rank}}
+{\footnotesize\ttfamily int game.\+Game.\+rank}
+
+the number of rank on the board 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/game/Game.\+java\end{DoxyCompactItemize}

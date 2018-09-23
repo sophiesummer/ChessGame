@@ -1,0 +1,96 @@
+\hypertarget{classpieces_1_1_pawn}{}\section{pieces.\+Pawn Class Reference}
+\label{classpieces_1_1_pawn}\index{pieces.\+Pawn@{pieces.\+Pawn}}
+Inheritance diagram for pieces.\+Pawn\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classpieces_1_1_pawn}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpieces_1_1_pawn_ac5014277fafcc4556c3816123a353540}{Pawn}} (int \mbox{\hyperlink{classpieces_1_1_pieces_ac5178f9b8a6b0c4235851475081249f3}{x}}, int \mbox{\hyperlink{classpieces_1_1_pieces_a66d911734967a8ced1b9792fe900fadb}{y}}, \mbox{\hyperlink{classgame_1_1_player}{Player}} \mbox{\hyperlink{classpieces_1_1_pieces_a49f35044dd36e5c4b04261a8ea54ad0c}{player}}, \mbox{\hyperlink{classgame_1_1_board}{Board}} play\+Board)
+\item 
+boolean \mbox{\hyperlink{classpieces_1_1_pawn_a16fd663948369962794e5d278f3f8107}{is\+Valid\+Move}} (int newX, int newY)
+\item 
+List$<$ int\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{classpieces_1_1_pawn_a2d97ee355c63d23a5ff0117ddf2a85b9}{moving}} (int newX, int newY)
+\item 
+void \mbox{\hyperlink{classpieces_1_1_pawn_ae20b1ede53cd4d2f6c1c064d05efaf93}{move}} (int newX, int newY)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{classpieces_1_1_pawn}{Pawn}} class 
+
+The pawn may move forward to the unoccupied square immediately in front of it on the same file; or on its first move it may advance two squares along the same file provided both squares are unoccupied; or it may move to a square occupied by an opponent\textquotesingle{}s piece which is diagonally in front of it on an adjacent file, capturing that piece. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpieces_1_1_pawn_ac5014277fafcc4556c3816123a353540}\label{classpieces_1_1_pawn_ac5014277fafcc4556c3816123a353540}} 
+\index{pieces\+::\+Pawn@{pieces\+::\+Pawn}!Pawn@{Pawn}}
+\index{Pawn@{Pawn}!pieces\+::\+Pawn@{pieces\+::\+Pawn}}
+\subsubsection{\texorpdfstring{Pawn()}{Pawn()}}
+{\footnotesize\ttfamily pieces.\+Pawn.\+Pawn (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{classgame_1_1_player}{Player}}}]{player,  }\item[{\mbox{\hyperlink{classgame_1_1_board}{Board}}}]{play\+Board }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+initialize pawn attributes 
+\begin{DoxyParams}{Parameters}
+{\em x} & the initial rank position \\
+\hline
+{\em y} & the initial file position \\
+\hline
+{\em player} & the player piece belong to \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classpieces_1_1_pawn_a16fd663948369962794e5d278f3f8107}\label{classpieces_1_1_pawn_a16fd663948369962794e5d278f3f8107}} 
+\index{pieces\+::\+Pawn@{pieces\+::\+Pawn}!is\+Valid\+Move@{is\+Valid\+Move}}
+\index{is\+Valid\+Move@{is\+Valid\+Move}!pieces\+::\+Pawn@{pieces\+::\+Pawn}}
+\subsubsection{\texorpdfstring{is\+Valid\+Move()}{isValidMove()}}
+{\footnotesize\ttfamily boolean pieces.\+Pawn.\+is\+Valid\+Move (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+check whether pawn is moved by its own rule; pawn could only move forward, only one step except for the first move 
+\begin{DoxyParams}{Parameters}
+{\em newX} & newX destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether this step is a valid move 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpieces_1_1_pawn_ae20b1ede53cd4d2f6c1c064d05efaf93}\label{classpieces_1_1_pawn_ae20b1ede53cd4d2f6c1c064d05efaf93}} 
+\index{pieces\+::\+Pawn@{pieces\+::\+Pawn}!move@{move}}
+\index{move@{move}!pieces\+::\+Pawn@{pieces\+::\+Pawn}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void pieces.\+Pawn.\+move (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+update the piece position 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classpieces_1_1_pawn_a2d97ee355c63d23a5ff0117ddf2a85b9}\label{classpieces_1_1_pawn_a2d97ee355c63d23a5ff0117ddf2a85b9}} 
+\index{pieces\+::\+Pawn@{pieces\+::\+Pawn}!moving@{moving}}
+\index{moving@{moving}!pieces\+::\+Pawn@{pieces\+::\+Pawn}}
+\subsubsection{\texorpdfstring{moving()}{moving()}}
+{\footnotesize\ttfamily List$<$int\mbox{[}$\,$\mbox{]}$>$ pieces.\+Pawn.\+moving (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+store the passing positions a helper function for later check leap over other pieces 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+only if pawn move two steps, we store the leaped over position 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/pieces/Pawn.\+java\end{DoxyCompactItemize}

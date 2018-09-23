@@ -1,0 +1,81 @@
+\hypertarget{classpieces_1_1_king}{}\section{pieces.\+King Class Reference}
+\label{classpieces_1_1_king}\index{pieces.\+King@{pieces.\+King}}
+Inheritance diagram for pieces.\+King\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classpieces_1_1_king}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpieces_1_1_king_aeb8f844df907887869024c67508ab8f0}{King}} (int \mbox{\hyperlink{classpieces_1_1_pieces_ac5178f9b8a6b0c4235851475081249f3}{x}}, int \mbox{\hyperlink{classpieces_1_1_pieces_a66d911734967a8ced1b9792fe900fadb}{y}}, \mbox{\hyperlink{classgame_1_1_player}{Player}} \mbox{\hyperlink{classpieces_1_1_pieces_a49f35044dd36e5c4b04261a8ea54ad0c}{player}})
+\item 
+boolean \mbox{\hyperlink{classpieces_1_1_king_a308ed50d558d0c681242c8dcd76cd37e}{is\+Valid\+Move}} (int newX, int newY)
+\item 
+List$<$ int\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{classpieces_1_1_king_a8cadd535c0a47713806bb65c975f2233}{moving}} (int newX, int newY)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{classpieces_1_1_king}{King}} class 
+
+The king moves one square in any direction. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpieces_1_1_king_aeb8f844df907887869024c67508ab8f0}\label{classpieces_1_1_king_aeb8f844df907887869024c67508ab8f0}} 
+\index{pieces\+::\+King@{pieces\+::\+King}!King@{King}}
+\index{King@{King}!pieces\+::\+King@{pieces\+::\+King}}
+\subsubsection{\texorpdfstring{King()}{King()}}
+{\footnotesize\ttfamily pieces.\+King.\+King (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{classgame_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+initialize king attributes 
+\begin{DoxyParams}{Parameters}
+{\em x} & the initial rank position \\
+\hline
+{\em y} & the initial file position \\
+\hline
+{\em player} & the player piece belong to \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classpieces_1_1_king_a308ed50d558d0c681242c8dcd76cd37e}\label{classpieces_1_1_king_a308ed50d558d0c681242c8dcd76cd37e}} 
+\index{pieces\+::\+King@{pieces\+::\+King}!is\+Valid\+Move@{is\+Valid\+Move}}
+\index{is\+Valid\+Move@{is\+Valid\+Move}!pieces\+::\+King@{pieces\+::\+King}}
+\subsubsection{\texorpdfstring{is\+Valid\+Move()}{isValidMove()}}
+{\footnotesize\ttfamily boolean pieces.\+King.\+is\+Valid\+Move (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+check whether king is moved by its own rule; king could only move one step but can in all directions 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether this step is a valid move 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpieces_1_1_king_a8cadd535c0a47713806bb65c975f2233}\label{classpieces_1_1_king_a8cadd535c0a47713806bb65c975f2233}} 
+\index{pieces\+::\+King@{pieces\+::\+King}!moving@{moving}}
+\index{moving@{moving}!pieces\+::\+King@{pieces\+::\+King}}
+\subsubsection{\texorpdfstring{moving()}{moving()}}
+{\footnotesize\ttfamily List$<$int\mbox{[}$\,$\mbox{]}$>$ pieces.\+King.\+moving (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+store the passing positions a helper function for later check leap over other pieces 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+since king only move one step, there\textquotesingle{}s no square to leap over 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/pieces/King.\+java\end{DoxyCompactItemize}

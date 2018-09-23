@@ -1,0 +1,81 @@
+\hypertarget{classpieces_1_1_wizard}{}\section{pieces.\+Wizard Class Reference}
+\label{classpieces_1_1_wizard}\index{pieces.\+Wizard@{pieces.\+Wizard}}
+Inheritance diagram for pieces.\+Wizard\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classpieces_1_1_wizard}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpieces_1_1_wizard_a33267d1b4e462ecc51b2a77d454ea98e}{Wizard}} (int \mbox{\hyperlink{classpieces_1_1_pieces_ac5178f9b8a6b0c4235851475081249f3}{x}}, int \mbox{\hyperlink{classpieces_1_1_pieces_a66d911734967a8ced1b9792fe900fadb}{y}}, \mbox{\hyperlink{classgame_1_1_player}{Player}} \mbox{\hyperlink{classpieces_1_1_pieces_a49f35044dd36e5c4b04261a8ea54ad0c}{player}})
+\item 
+boolean \mbox{\hyperlink{classpieces_1_1_wizard_ac8894909924ae970cb63b68d131bf2da}{is\+Valid\+Move}} (int newX, int newY)
+\item 
+List$<$ int\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{classpieces_1_1_wizard_a477ebc0284c9c2a16513a7a7c9dc224e}{moving}} (int newX, int newY)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{classpieces_1_1_wizard}{Wizard}} Class 
+
+\mbox{\hyperlink{classpieces_1_1_wizard}{Wizard}} could only move one step in any directions, like a king the opponent piece in \mbox{\hyperlink{classpieces_1_1_wizard}{Wizard}}\textquotesingle{}s left, right, up or down position will be removed. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpieces_1_1_wizard_a33267d1b4e462ecc51b2a77d454ea98e}\label{classpieces_1_1_wizard_a33267d1b4e462ecc51b2a77d454ea98e}} 
+\index{pieces\+::\+Wizard@{pieces\+::\+Wizard}!Wizard@{Wizard}}
+\index{Wizard@{Wizard}!pieces\+::\+Wizard@{pieces\+::\+Wizard}}
+\subsubsection{\texorpdfstring{Wizard()}{Wizard()}}
+{\footnotesize\ttfamily pieces.\+Wizard.\+Wizard (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{classgame_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+initialize wizard attributes 
+\begin{DoxyParams}{Parameters}
+{\em x} & the initial rank position \\
+\hline
+{\em y} & the initial file position \\
+\hline
+{\em player} & the player piece belong to \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classpieces_1_1_wizard_ac8894909924ae970cb63b68d131bf2da}\label{classpieces_1_1_wizard_ac8894909924ae970cb63b68d131bf2da}} 
+\index{pieces\+::\+Wizard@{pieces\+::\+Wizard}!is\+Valid\+Move@{is\+Valid\+Move}}
+\index{is\+Valid\+Move@{is\+Valid\+Move}!pieces\+::\+Wizard@{pieces\+::\+Wizard}}
+\subsubsection{\texorpdfstring{is\+Valid\+Move()}{isValidMove()}}
+{\footnotesize\ttfamily boolean pieces.\+Wizard.\+is\+Valid\+Move (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+check whether wizard is moved by its own rule; wizard move similar to king 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether this step is a valid move 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpieces_1_1_wizard_a477ebc0284c9c2a16513a7a7c9dc224e}\label{classpieces_1_1_wizard_a477ebc0284c9c2a16513a7a7c9dc224e}} 
+\index{pieces\+::\+Wizard@{pieces\+::\+Wizard}!moving@{moving}}
+\index{moving@{moving}!pieces\+::\+Wizard@{pieces\+::\+Wizard}}
+\subsubsection{\texorpdfstring{moving()}{moving()}}
+{\footnotesize\ttfamily List$<$int\mbox{[}$\,$\mbox{]}$>$ pieces.\+Wizard.\+moving (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+store the passing positions a helper function for later check leap over other pieces 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+null, since wizard only move one squares each time 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/pieces/Wizard.\+java\end{DoxyCompactItemize}

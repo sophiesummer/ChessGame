@@ -1,0 +1,81 @@
+\hypertarget{classpieces_1_1_queen}{}\section{pieces.\+Queen Class Reference}
+\label{classpieces_1_1_queen}\index{pieces.\+Queen@{pieces.\+Queen}}
+Inheritance diagram for pieces.\+Queen\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classpieces_1_1_queen}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpieces_1_1_queen_a330bbe8bd6a75147004ed3267b0b422f}{Queen}} (int \mbox{\hyperlink{classpieces_1_1_pieces_ac5178f9b8a6b0c4235851475081249f3}{x}}, int \mbox{\hyperlink{classpieces_1_1_pieces_a66d911734967a8ced1b9792fe900fadb}{y}}, \mbox{\hyperlink{classgame_1_1_player}{Player}} \mbox{\hyperlink{classpieces_1_1_pieces_a49f35044dd36e5c4b04261a8ea54ad0c}{player}})
+\item 
+boolean \mbox{\hyperlink{classpieces_1_1_queen_a12c3d1bc54998da5947802f70070378f}{is\+Valid\+Move}} (int newX, int newY)
+\item 
+List$<$ int\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{classpieces_1_1_queen_a2e0d378c18cf3fd85dc1acf860294950}{moving}} (int newX, int newY)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{classpieces_1_1_queen}{Queen}} class 
+
+The queen combines the power of the rook and bishop and can move any number of squares along rank, file, or diagonal, but it may not leap over other pieces. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpieces_1_1_queen_a330bbe8bd6a75147004ed3267b0b422f}\label{classpieces_1_1_queen_a330bbe8bd6a75147004ed3267b0b422f}} 
+\index{pieces\+::\+Queen@{pieces\+::\+Queen}!Queen@{Queen}}
+\index{Queen@{Queen}!pieces\+::\+Queen@{pieces\+::\+Queen}}
+\subsubsection{\texorpdfstring{Queen()}{Queen()}}
+{\footnotesize\ttfamily pieces.\+Queen.\+Queen (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{classgame_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+initialize queen attributes 
+\begin{DoxyParams}{Parameters}
+{\em x} & the initial rank position \\
+\hline
+{\em y} & the initial file position \\
+\hline
+{\em player} & the player piece belong to \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classpieces_1_1_queen_a12c3d1bc54998da5947802f70070378f}\label{classpieces_1_1_queen_a12c3d1bc54998da5947802f70070378f}} 
+\index{pieces\+::\+Queen@{pieces\+::\+Queen}!is\+Valid\+Move@{is\+Valid\+Move}}
+\index{is\+Valid\+Move@{is\+Valid\+Move}!pieces\+::\+Queen@{pieces\+::\+Queen}}
+\subsubsection{\texorpdfstring{is\+Valid\+Move()}{isValidMove()}}
+{\footnotesize\ttfamily boolean pieces.\+Queen.\+is\+Valid\+Move (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+check whether queen is moved by its own rule; queen could move in all eight directions 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether this step is a valid move 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classpieces_1_1_queen_a2e0d378c18cf3fd85dc1acf860294950}\label{classpieces_1_1_queen_a2e0d378c18cf3fd85dc1acf860294950}} 
+\index{pieces\+::\+Queen@{pieces\+::\+Queen}!moving@{moving}}
+\index{moving@{moving}!pieces\+::\+Queen@{pieces\+::\+Queen}}
+\subsubsection{\texorpdfstring{moving()}{moving()}}
+{\footnotesize\ttfamily List$<$int\mbox{[}$\,$\mbox{]}$>$ pieces.\+Queen.\+moving (\begin{DoxyParamCaption}\item[{int}]{newX,  }\item[{int}]{newY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+store the passing positions a helper function for later check leap over other pieces since \mbox{\hyperlink{classpieces_1_1_queen}{Queen}} combines rules of \mbox{\hyperlink{classpieces_1_1_rook}{Rook}} and \mbox{\hyperlink{classpieces_1_1_bishop}{Bishop}}, apply methods in both classes 
+\begin{DoxyParams}{Parameters}
+{\em newX} & destination rank of the piece \\
+\hline
+{\em newY} & destination file of the piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the positions that queen has leaped over 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/pieces/Queen.\+java\end{DoxyCompactItemize}
