@@ -1,5 +1,0 @@
-var searchData=
-[
-  ['move',['move',['../classpieces_1_1_pawn.html#ae20b1ede53cd4d2f6c1c064d05efaf93',1,'pieces.Pawn.move()'],['../classpieces_1_1_pieces.html#aa204ec32ed62d79896561f253caf663a',1,'pieces.Pieces.move()']]],
-  ['moving',['moving',['../classpieces_1_1_bishop.html#a3bdcfb9a3b44569aee1d5d4e5aa7333d',1,'pieces.Bishop.moving()'],['../classpieces_1_1_hopper.html#a9cb2384553aded22be588ae1eff76d09',1,'pieces.Hopper.moving()'],['../classpieces_1_1_king.html#a8cadd535c0a47713806bb65c975f2233',1,'pieces.King.moving()'],['../classpieces_1_1_knight.html#ab70ead116fdcb7786b07b671639b792e',1,'pieces.Knight.moving()'],['../classpieces_1_1_pawn.html#a2d97ee355c63d23a5ff0117ddf2a85b9',1,'pieces.Pawn.moving()'],['../classpieces_1_1_pieces.html#a28711472a94edf18be7c8300cf0cc64b',1,'pieces.Pieces.moving()'],['../classpieces_1_1_queen.html#a2e0d378c18cf3fd85dc1acf860294950',1,'pieces.Queen.moving()'],['../classpieces_1_1_rook.html#a45ac73bc8b0a1b8efac9ec3b6398bb2c',1,'pieces.Rook.moving()'],['../classpieces_1_1_wizard.html#a477ebc0284c9c2a16513a7a7c9dc224e',1,'pieces.Wizard.moving()']]]
-];
