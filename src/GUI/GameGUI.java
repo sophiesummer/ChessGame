@@ -13,15 +13,14 @@ public class GameGUI {
         window = new JFrame("MY Chess Game");
         window.setResizable(false);
         window.setLayout(new BorderLayout());
-        window.setVisible(true);
+
         window.setLocation(100, 100);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(new Dimension(640, 640));
-
+        setUpMenu(window);
         chessBoard = new BoardGUI();
         window.add(chessBoard, BorderLayout.CENTER);
-        setUpMenu(window);
-
+        window.setVisible(true); // set lastly
     }
 
     private void setUpMenu(JFrame window) {
@@ -33,7 +32,7 @@ public class GameGUI {
 
         JMenu game = new JMenu("Game");
         JMenuItem player = new JMenuItem("choose player");
-        JMenuItem start = new JMenuItem("start game");
+        JMenuItem start = new JMenuItem("start/restart game");
         game.add(player);
         game.add(start);
 
@@ -46,12 +45,5 @@ public class GameGUI {
 
     public static void main(String[] args) {
         new GameGUI();
-
-//        File imageCheck = new File("src/GUI/image/bRook.png");
-//
-//        if(imageCheck.exists())
-//            System.out.println("Image file found!!@@@");
-//        else
-//            System.out.println("Image file not found!");
     }
 }

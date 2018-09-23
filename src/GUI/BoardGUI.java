@@ -31,11 +31,11 @@ public class BoardGUI extends JPanel {
                 gbc.gridx = j;
                 gbc.gridy = i;
 
-                btn.setVisible(true);
 
                 if (i == 1) {
                     btn.setIcon(new ImageIcon("img/black_pawn.gif"));
                 }
+
                 if (i == 6) {
                     btn.setIcon(new ImageIcon("img/white_pawn.gif"));
                 }
@@ -43,6 +43,7 @@ public class BoardGUI extends JPanel {
                 if (i == 0 && (j == 0 || j == 7)) {
                     btn.setIcon(new ImageIcon("img/black_rook.gif"));
                 }
+
                 if (i == 0 && (j == 1 || j == 6)) {
                     btn.setIcon(new ImageIcon("img/black_knight.gif"));
                 }
@@ -62,6 +63,7 @@ public class BoardGUI extends JPanel {
                 if (i == 7 && (j == 0 || j == 7)) {
                     btn.setIcon(new ImageIcon("img/white_rook.gif"));
                 }
+
                 if (i == 7 && (j == 1 || j == 6)) {
                     btn.setIcon(new ImageIcon("img/white_knight.gif"));
                 }
@@ -77,9 +79,10 @@ public class BoardGUI extends JPanel {
                 if (i == 7 && j == 4) {
                     btn.setIcon(new ImageIcon("img/white_king.gif"));
                 }
+
                 btn.setPreferredSize(pieceDimension);
                 btn.setBorderPainted(false);
-
+                btn.setVisible(true);
                 btn.setOpaque(true);
                 //btn.addActionListener();
 
