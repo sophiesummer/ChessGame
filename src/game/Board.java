@@ -208,7 +208,7 @@ public class Board {
         }
 
         if (prevPiece instanceof King) {
-         prevPiece.getPlayer().isLose = true;   // lose the king
+            prevPiece.getPlayer().isLose = true;   // lose the king
         }
         board[newX][newY] = piece; //put pieces into the new position
         piece.move(newX, newY);

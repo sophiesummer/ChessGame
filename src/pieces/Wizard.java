@@ -10,19 +10,7 @@ import java.util.List;
  * Wizard could only move one step in any directions, like a king
  * the opponent piece in Wizard's left, right, up or down position will be removed.
  */
-public class Wizard implements Pieces{
-
-    /** rank position of the piece */
-    private int x;
-
-    /** file position of the piece */
-    private int y;
-
-    /** the player piece belongs to */
-    public Player player;
-
-    /** the type this piece is */
-    public Type type = Type.Wizard;
+public class Wizard extends Pieces{
 
     /**
      * initialize wizard attributes
@@ -31,37 +19,10 @@ public class Wizard implements Pieces{
      * @param player the player piece belong to
      */
     public Wizard(int x, int y, Player player) {
-        this.x = x;
-        this.y = y;
-        this.player = player;
+        super(x, y, player);
+        type = Type.Wizard;
     }
 
-    /**
-     * get position of the piece
-     * @return an array contains two elements, x position and y position.
-     */
-    @Override
-    public int[] getPosition() {
-        return new int[]{x, y};
-    }
-
-    /**
-     * get Type of the piece
-     * @return the enum type of the piece
-     */
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    /**
-     * get Player reference of the piece
-     * @return the player this piece belongs to
-     */
-    @Override
-    public Player getPlayer() {
-        return player;
-    }
 
     /**
      * check whether wizard is moved by its own rule;
@@ -88,32 +49,4 @@ public class Wizard implements Pieces{
         return null;
     }
 
-    /**
-     * update the piece position
-     * @param newX destination rank of the piece
-     * @param newY destination file of the piece
-     */
-    @Override
-    public void move(int newX, int newY) {
-        x = newX;
-        y = newY;
-    }
-
-    /**
-     * set piece's rank position
-     * @param x new rank position
-     */
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * set piece's file position
-     * @param y new file position
-     */
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
 }

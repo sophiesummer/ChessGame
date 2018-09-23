@@ -12,19 +12,7 @@ import java.util.List;
  * and can move any number of squares along rank, file, or diagonal,
  * but it may not leap over other pieces.
  */
-public class Queen implements Pieces {
-
-    /** rank position of the piece */
-    private int x;
-
-    /** file position of the piece */
-    private int y;
-
-    /** the player piece belongs to */
-    public Player player;
-
-    /** the type this piece is */
-    public Type type = Type.Queen;
+public class Queen extends Pieces {
 
     /**
      * initialize queen attributes
@@ -33,36 +21,8 @@ public class Queen implements Pieces {
      * @param player the player piece belong to
      */
     public Queen(int x, int y, Player player) {
-        this.player = player;
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * get position of the piece
-     * @return an array contains two elements, x position and y position.
-     */
-    @Override
-    public int[] getPosition() {
-        return new int[]{this.x, this.y};
-    }
-
-    /**
-     * get Type of the piece
-     * @return the enum type of the piece
-     */
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    /**
-     * get Player reference of the piece
-     * @return the player this piece belongs to
-     */
-    @Override
-    public Player getPlayer() {
-        return player;
+        super(x, y, player);
+        type = Type.Queen;
     }
 
 
@@ -107,32 +67,4 @@ public class Queen implements Pieces {
         return steps;
     }
 
-    /**
-     * update the piece position
-     * @param newX destination rank of the piece
-     * @param newY destination file of the piece
-     */
-    @Override
-    public void move(int newX, int newY) {
-        x = newX;
-        y = newY;
-    }
-
-    /**
-     * set piece's rank position
-     * @param x new rank position
-     */
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * set piece's file position
-     * @param y new file position
-     */
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
 }

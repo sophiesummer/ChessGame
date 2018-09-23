@@ -15,19 +15,7 @@ import java.util.List;
  * or it may move to a square occupied by an opponent's piece
  * which is diagonally in front of it on an adjacent file, capturing that piece.
  */
-public class Pawn implements Pieces {
-
-    /** rank position of the piece */
-    private int x;
-
-    /** file position of the piece */
-    private int y;
-
-    /** the player piece belongs to */
-    public Player player;
-
-    /** the type this piece is */
-    public Type type = Type.Pawn;
+public class Pawn extends Pieces {
 
     /** the flag to ensure whether this Pawn has moved before */
     private boolean firstStep = true;
@@ -39,36 +27,8 @@ public class Pawn implements Pieces {
      * @param player the player piece belong to
      */
     public Pawn(int x, int y, Player player) {
-        this.x = x;
-        this.y = y;
-        this.player = player;
-    }
-
-    /**
-     * get position of the piece
-     * @return an array contains two elements, x position and y position.
-     */
-    @Override
-    public int[] getPosition() {
-        return new int[]{this.x, this.y};
-    }
-
-    /**
-     * get Type of the piece
-     * @return the enum type of the piece
-     */
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    /**
-     * get Player reference of the piece
-     * @return the player this piece belongs to
-     */
-    @Override
-    public Player getPlayer() {
-        return player;
+        super(x, y, player);
+        type = Type.Pawn;
     }
 
 
@@ -135,23 +95,6 @@ public class Pawn implements Pieces {
         y = newY;
     }
 
-    /**
-     * set piece's rank position
-     * @param x new rank position
-     */
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * set piece's file position
-     * @param y new file position
-     */
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
 
 
 }
