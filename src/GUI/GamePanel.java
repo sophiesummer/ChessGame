@@ -31,5 +31,6 @@ public class GamePanel extends JPanel {
         this.add(player1Score);
         this.setBackground(Color.PINK);
     }
+    
 
 }
