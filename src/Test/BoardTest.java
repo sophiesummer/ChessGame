@@ -18,8 +18,8 @@ class BoardTest {
     private List<Pieces> player1Pieces;
 
     BoardTest() {
-        game = new Game(8, 8);
-        playBoard = new Board(game.rank, game.file, game.player0, game.player1);
+        game = new Game(8, 8, false, "", "");
+        playBoard = new Board(game);
         game.playBoard = playBoard;
         player0Pieces = new ArrayList<>();
         player1Pieces = new ArrayList<>();
@@ -132,14 +132,10 @@ class BoardTest {
         assertEquals(null, playBoard.board[5][2]); // previous position has no pieces now
         assertArrayEquals(pawnPlayer0.getPosition(), new int[]{4, 2}); // pawn's position has been updated
 
-
-        // test Wizard valid move and capture
-        assertTrue(playBoard.checkValid(game.player1, 1, 4, 2, 4));
-        playBoard.putPieces(game.player1, 1, 4, 2, 4);
-        assertTrue(playBoard.board[2][4].getType() == Type.Wizard);
-        assertTrue(playBoard.board[2][4].getPlayer() == game.player1);
-        assertArrayEquals(new int[]{2, 4}, playBoard.board[2][4].getPosition());
-        assertTrue(playBoard.board[2][3] == null);
+        playBoard.putPieces(game.player1, 1, 4, 0, 3);
+        assertTrue(playBoard.board[0][3].getType() == Type.Wizard);
+        assertTrue(playBoard.board[0][3].getPlayer() == game.player1);
+        assertArrayEquals(new int[]{0, 3}, playBoard.board[0][3].getPosition());
 
     }
 

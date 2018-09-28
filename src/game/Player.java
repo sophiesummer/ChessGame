@@ -22,16 +22,21 @@ public class Player {
     /** whether the player is lose*/
     public boolean isLose;
 
+    public int score;
+
+    public String name;
+
     /**
      * initialize player attributes
      * @param color the color of player's pieces
      * @param playBoard the board that player is playing on
      */
-    public Player(int color, Board playBoard) {
+    public Player(int color, Board playBoard, String name) {
         this.color = color;
         isChecked = false;
         this.playBoard = playBoard;
         isLose = false;
+        score = 0;
     }
 
 

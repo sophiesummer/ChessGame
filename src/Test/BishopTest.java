@@ -17,7 +17,7 @@ class BishopTest {
     private Bishop testPiece;
 
     public BishopTest() {
-        game = new Game(8, 8);
+        game = new Game(8, 8, false, "","");
         testPiece = new Bishop(3, 3, game.player0);
         game.playBoard.board[3][3] = testPiece;
     }

@@ -21,19 +21,22 @@ public class Game {
     /** whether game is end */
     private boolean isEnd;
 
+    public boolean addCustomPiece;
+
 
     /**
      * initialize game attributes
      * @param rank the number of rank on the board
      * @param file the number of file on the board
      */
-    public Game(int rank, int file) {
+    public Game(int rank, int file, boolean addCustomPiece, String name0, String name1) {
         this.rank = rank;
         this.file = file;
+        this.addCustomPiece = addCustomPiece;
 
-        player0 = new Player(0, playBoard);
-        player1 = new Player(1, playBoard);
-        playBoard = new Board(rank, file, player0, player1);
+        player0 = new Player(0, playBoard, name0); //
+        player1 = new Player(1, playBoard, name1); //
+        playBoard = new Board(this);
         playBoard.setPieces();
         isEnd = false;
     }

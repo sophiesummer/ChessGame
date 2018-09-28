@@ -29,36 +29,47 @@ public class Board {
     /** count whether over 100 turns no captures, which is a stalemate.*/
     private int count = 0;
 
+    private Game game;
+
+    /** whether check happen */
+    public boolean isCheck = false;
+
+    /** whether checkmate happen and the game end */
+    public boolean isCheckMate = false;
+
+    /** whether stalemate happen */
+    public boolean isStaleMate = false;
+
+    /** whether play add custom piece version */
+    private boolean addCustomPiece;
 
     /**
-     * initialize board attributes
-     * @param rank the number of ranks
-     * @param file the number of files
-     * @param player0 the upper player
-     * @param player1 the downwards player
+     * initialize board fields
+     * @param game board for the game
      */
-    public Board(int rank, int file, Player player0, Player player1) {
-        this.rank = rank;
-        this.file = file;
+    public Board(Game game) {
+        this.rank = game.rank;
+        this.file = game.file;
         board = new Pieces[rank][file];
-
-        this.player0 = player0;
-        this.player1 = player1;
+        this.addCustomPiece = game.addCustomPiece;
+        this.game = game;
+        this.player0 = game.player0;
+        this.player1 = game.player1;
     }
 
     /**
      * put all players' pieces and assign the pieces to them
      */
     public void setPieces() {
-        player0.getPieces(setPlayer0Pieces());
-        player1.getPieces(setPlayer1Pieces());
+        player0.getPieces(setPlayer0Pieces(addCustomPiece));
+        player1.getPieces(setPlayer1Pieces(addCustomPiece));
     }
 
     /**
      * initialize pieces position
      * @return the list of pieces for player0
      */
-    private List<Pieces> setPlayer0Pieces() {
+    private List<Pieces> setPlayer0Pieces(boolean addCustomPiece) {
         List<Pieces> player0Pieces = new ArrayList<>();
         //pawn
         for (int i = 0; i < file; i++) {
@@ -74,19 +85,33 @@ public class Board {
         player0Pieces.add(rook1);
         player0Pieces.add(rook2);
 
-        Pieces knight1 = new Knight(1,0, player0);
-        Pieces knight2 = new Knight(6,0, player0);
-        board[1][0] = knight1;
+        Pieces knight2 = new Knight(6, 0, player0);
         board[6][0] = knight2;
-        player0Pieces.add(knight1);
         player0Pieces.add(knight2);
 
+        if (!addCustomPiece) {
+            Pieces knight1 = new Knight(1, 0, player0);
+            board[1][0] = knight1;
+            player0Pieces.add(knight1);
+        } else {
+            Pieces hopper = new Hopper(1, 0, player0, this);
+            player0Pieces.add(hopper);
+            board[1][0] = hopper;
+        }
+
         Pieces bishop1 = new Bishop(2, 0, player0);
-        Pieces bishop2 = new Bishop(5, 0, player0);
         board[2][0] = bishop1;
-        board[5][0] = bishop2;
         player0Pieces.add(bishop1);
-        player0Pieces.add(bishop2);
+
+        if (!addCustomPiece) {
+            Pieces bishop2 = new Bishop(5, 0, player0);
+            board[5][0] = bishop2;
+            player0Pieces.add(bishop2);
+        } else {
+            Pieces wizard = new Wizard(5, 0, player0);
+            board[5][0] = wizard;
+            player0Pieces.add(wizard);
+        }
 
         Pieces queen = new Queen(3, 0, player0);
         Pieces king = new King(4, 0, player0);
@@ -103,7 +128,7 @@ public class Board {
      * initialize pieces position
      * @return the list of pieces for player1
      */
-    private List<Pieces> setPlayer1Pieces() {
+    private List<Pieces> setPlayer1Pieces(boolean addCustomPiece) {
         List<Pieces> player1Pieces = new ArrayList<>();
 
         //pawn
@@ -120,19 +145,33 @@ public class Board {
         player1Pieces.add(rook1);
         player1Pieces.add(rook2);
 
-        Pieces knight1 = new Knight(1,7, player1);
         Pieces knight2 = new Knight(6,7, player1);
-        board[1][7] = knight1;
         board[6][7] = knight2;
-        player1Pieces.add(knight1);
         player1Pieces.add(knight2);
 
+        if (!addCustomPiece) {
+            Pieces knight1 = new Knight(1,7, player1);
+            board[1][7] = knight1;
+            player1Pieces.add(knight1);
+        } else {
+            Pieces hopper = new Hopper(1, 7, player1, this);
+            board[1][7] = hopper;
+            player1Pieces.add(hopper);
+        }
+
         Pieces bishop1 = new Bishop(2,7, player1);
-        Pieces bishop2 = new Bishop(5,7, player1);
         board[2][7] = bishop1;
-        board[5][7] = bishop2;
         player1Pieces.add(bishop1);
-        player1Pieces.add(bishop2);
+
+        if (!addCustomPiece) {
+            Pieces bishop2 = new Bishop(5,7, player1);
+            board[5][7] = bishop2;
+            player1Pieces.add(bishop2);
+        } else {
+            Pieces wizard = new Wizard(5, 7, player1);
+            board[5][7] = wizard;
+            player1Pieces.add(wizard);
+        }
 
         Pieces queen = new Queen(3,7, player1);
         Pieces king = new King(4,7, player1);
@@ -161,7 +200,6 @@ public class Board {
                 && isValidMove(piece.moving(newX, newY));
     }
 
-
     /**
      * put the piece into correct position and do capture
      * @param player the player who is moving pieces
@@ -182,29 +220,6 @@ public class Board {
             count = 0; // if capture happen, count from start.
             Player standingPlayer = prevPiece.getPlayer();
             standingPlayer.pieces.remove(prevPiece); // remove defeated piece
-        }
-        // Wizard rules, which can capture its four surrounding opponents' pieces
-        if (piece instanceof Wizard) {
-            if (board[newX + 1][newY] != null
-                    && board[newX + 1][newY].getPlayer() != ((Wizard) piece).player) {
-                board[newX + 1][newY].getPlayer().pieces.remove(board[newX + 1][newY]);
-                board[newX + 1][newY] = null;
-            }
-            if (board[newX - 1][newY] != null
-                    && board[newX - 1][newY].getPlayer() != ((Wizard) piece).player) {
-                board[newX - 1][newY].getPlayer().pieces.remove(board[newX - 1][newY]);
-                board[newX - 1][newY] = null;
-            }
-            if (board[newX][newY + 1] != null
-                    && board[newX][newY + 1].getPlayer() != ((Wizard) piece).player) {
-                board[newX][newY + 1].getPlayer().pieces.remove(board[newX][newY + 1]);
-                board[newX][newY + 1] = null;
-            }
-            if (board[newX][newY - 1] != null
-                    && board[newX][newY - 1].getPlayer() != ((Wizard) piece).player) {
-                board[newX][newY - 1].getPlayer().pieces.remove(board[newX][newY - 1]);
-                board[newX][newY - 1] = null;
-            }
         }
 
         if (prevPiece instanceof King) {
@@ -275,12 +290,12 @@ public class Board {
             int[] pos = movingPiece.getPosition();
             // check whether there's a piece can reach the opponent's king
             if (checkValid(movingPlayer, pos[0], pos[1], oppKingPos[0], oppKingPos[1])) {
+                isCheck = true;
                 return true;
             }
         }
         return false;
     }
-
 
     /**
      * opponent's king is in check and there's no legal move, then checkmate
@@ -290,6 +305,7 @@ public class Board {
      */
     public boolean isCheckmate(Player movingPlayer, Player opponent) {
         if (inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent)) {
+            isCheckMate = true;
             opponent.isLose = true;
             System.out.println("CheckMate!");
             return true;
@@ -308,19 +324,21 @@ public class Board {
      */
     public boolean isStalemate(Player movingPlayer, Player opponent) {
         if (!inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent)) {
+            isStaleMate = true;
           return true;
         }
         if (!player1.isLose && !player0.isLose
                 && player0.pieces.size() == 1 && player1.pieces.size() == 1) {
+            isStaleMate = true;
             return true;
         }
 
         if (count > 100){
+            isStaleMate = true;
             return true;
         }
         return false;
     }
-
 
     /**
      * for all the possibilities, see whether the checked player still in check

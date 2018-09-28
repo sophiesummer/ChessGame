@@ -12,7 +12,7 @@ class GameTest {
 
     @Test
     void start() {
-        Game game = new Game(8, 8);
+        Game game = new Game(8, 8, true, "", "");
 
         // test whether pieces initially placed correctly
         assertTrue(game.player0.pieces.size() == 16);

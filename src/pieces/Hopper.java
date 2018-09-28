@@ -46,7 +46,11 @@ public class Hopper extends Pieces {
                 || (y == newY && Math.abs(x - newX) == 2))) {
             return false;
         }
-        return playBoard.board[(newX + x) / 2][(newY + y) / 2] != null;
+        if (playBoard.board[(newX + x) / 2][(newY + y) / 2] != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -60,6 +64,4 @@ public class Hopper extends Pieces {
     public List<int[]> moving(int newX, int newY) {
         return null;
     }
-
-
 }
