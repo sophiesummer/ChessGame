@@ -23,6 +23,14 @@ public class GamePanel extends JPanel {
         forfeit.setText("Forfeit");
         this.game = game;
 
+        this.add(undo);
+        this.add(restart);
+        this.add(forfeit);
+        setScoreText();
+        this.setBackground(Color.PINK);
+    }
+
+    public void setScoreText() {
         player0Score = new JLabel();
         player0Score.setText("Player " + game.player0.name + " Score : " + game.player0.score);
         player1Score = new JLabel();
@@ -31,12 +39,7 @@ public class GamePanel extends JPanel {
         Font myFont = new Font("Serif", Font.BOLD, 20);
         player1Score.setFont(myFont);
         player0Score.setFont(myFont);
-
-        this.add(undo);
-        this.add(restart);
-        this.add(forfeit);
         this.add(player0Score);
         this.add(player1Score);
-        this.setBackground(Color.PINK);
     }
 }

@@ -10,8 +10,7 @@ import java.io.File;
 public class GameGUI {
 
     private JFrame window;
-    private BoardGUI chessBoard;
-    public boolean customize;
+    public BoardGUI chessBoard;
     public Game presentGame;
     public Player player0;
     public Player player1;
@@ -30,9 +29,6 @@ public class GameGUI {
         playerSettings();
         presentGame.player0 = player0;
         presentGame.player1 = player1;
-        gameSettings();
-        presentGame.addCustomPiece = customize;
-
         chessBoard = new BoardGUI(presentGame); // user input to choose
         window.add(chessBoard, BorderLayout.CENTER);
 
@@ -40,20 +36,6 @@ public class GameGUI {
         window.setVisible(true); // set lastly
     }
 
-    private void setUpMenu(JFrame window) {
-        JMenuBar menubar = new JMenuBar();
-
-        JMenu game = new JMenu("Game");
-        JMenuItem player = new JMenuItem("Choose Player");
-        JMenuItem restart = new JMenuItem("Start a new Game");
-        JMenuItem customPiece = new JMenuItem("Add Custom Pieces");
-        game.add(player);
-        game.add(restart);
-        game.add(customPiece);
-
-        menubar.add(game);
-        window.setJMenuBar(menubar);
-    }
 
     private void playerSettings() {
         String player0Name = "";
@@ -74,21 +56,10 @@ public class GameGUI {
         if (player0Color.equalsIgnoreCase("w")) {
             player0 = new Player(0, player1Name);
             player1 = new Player(1, player0Name);
+
         } else {
             player0 = new Player(0, player0Name);
             player1 = new Player(1, player1Name);
-        }
-    }
-
-    private void gameSettings() {
-        int selectedOption = JOptionPane.showConfirmDialog(null,
-                "Do you wanna add custom pieces?",
-                "Choose",
-                JOptionPane.YES_NO_OPTION);
-        if (selectedOption == JOptionPane.YES_OPTION) {
-            customize = true;
-        } else {
-            customize = false;
         }
     }
 

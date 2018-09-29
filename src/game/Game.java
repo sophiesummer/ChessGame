@@ -21,18 +21,21 @@ public class Game {
     public int file = 8;
 
     /** whether game is end */
-    private boolean isEnd;
+    public boolean isEnd;
 
-    public boolean addCustomPiece;
+    public int endState;
 
     GameGUI gameGUI;
 
-
     public Game() {
         gameGUI = new GameGUI(this);
-
-        this.addCustomPiece = gameGUI.customize;
         playBoard = new Board(this);
+
+        // combine GUI and logic settings
+        playBoard.addCustomPiece = gameGUI.chessBoard.setCustomPiece;
+        playBoard.presentTurn = gameGUI.chessBoard.presentPlayer;
+        playBoard.boardGUI = gameGUI.chessBoard;
+
         playBoard.setPieces();
         isEnd = false;
     }
@@ -53,7 +56,6 @@ public class Game {
         return isEnd;
     }
 
-
     /**
      * game start interface
      * @return whether game is end
@@ -61,45 +63,8 @@ public class Game {
     public boolean start() {
         System.out.println("Game start!");
 
-        // decide who goes first
-        Random rand = new Random();
-        int playFirst = rand.nextInt(1);
-        if (playFirst == 1) { // always player0 plays first, so swap two players
-            Player temp = player0;
-            player0 = player1;
-            player1 = temp;
-        }
-
         while (!isEnd) {
-            int player0StartX, player0StartY, player0EndX, player0EndY;
 
-            System.out.println("player0: input the start position and destination: ");
-            do {
-                player0StartX = new Scanner(System.in).nextInt();
-                player0StartY = new Scanner(System.in).nextInt();
-                player0EndX = new Scanner(System.in).nextInt();
-                player0EndY = new Scanner(System.in).nextInt();
-            } while(playBoard.checkValid(player0, player0StartX, player0StartY, player0EndX, player0EndY));
-
-            playBoard.putPieces(player0, player0StartX, player0StartY, player0EndX, player0EndY);
-            judge(player0, player1);
-
-            if (isEnd) {
-                continue;
-            }
-
-            int player1StartX, player1StartY, player1EndX, player1EndY;
-
-            System.out.println("player1: input the start position and destination: ");
-            do {
-                player1StartX = new Scanner(System.in).nextInt();
-                player1StartY = new Scanner(System.in).nextInt();
-                player1EndX = new Scanner(System.in).nextInt();
-                player1EndY = new Scanner(System.in).nextInt();
-            } while(playBoard.checkValid(player1, player1StartX, player1StartY, player1EndX, player1EndY));
-
-            playBoard.putPieces(player1, player1StartX, player1StartY, player1EndX, player1EndY);
-            judge(player1, player0);
         }
 
         if (player1.isLose) {

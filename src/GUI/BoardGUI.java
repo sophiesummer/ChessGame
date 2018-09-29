@@ -19,6 +19,7 @@ public class BoardGUI extends JPanel {
     Button selectedBtn;
     private Game game;
     private Deque<Pieces> stack = new LinkedList<>();
+    public Player presentPlayer;
 
 
     public BoardGUI(Game game) {
@@ -27,7 +28,7 @@ public class BoardGUI extends JPanel {
         this.game = game;
         setPreferredSize(boardDimension);
         setLocation(0, 0);
-        this.setCustomPiece = game.addCustomPiece;
+        gameSettings();
         grids = new Button[8][8];
         setPieceInitial(setCustomPiece);
         selectedBtn = null;
@@ -61,27 +62,22 @@ public class BoardGUI extends JPanel {
         }
     }
 
-    /**
-     * decide the button's original background is pink or white
-     * @param btn
-     */
-    private void setBtnBackgroundColor(Button btn) {
-        if ((btn.x + btn.y) % 2 == 0) {
-            btn.setBackground(Color.white);
-        } else {
-            btn.setBackground(Color.pink);
-        }
-    }
+
+
 
     class ButtonAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             Button btn = (Button)e.getSource();
             if (selectedBtn == null && btn.getIcon() == null) {
-                JOptionPane.showMessageDialog(null, "Invalid movement! Please try another move.");
+                JOptionPane.showMessageDialog(null, "Please select a piece.");
                 return;
             }
             if (btn.getIcon() != null && selectedBtn == null) {
+                if (game.playBoard.board[btn.x][btn.y].getPlayer() != game.playBoard.presentTurn) {
+                    JOptionPane.showMessageDialog(null, "It's not " + game.playBoard.board[btn.x][btn.y].getPlayer().name + "'s turn.");
+                    return;
+                }
                 selectedBtn = btn;
                 btn.setBackground(Color.lightGray);
             } else {
@@ -120,6 +116,48 @@ public class BoardGUI extends JPanel {
         setBtnBackgroundColor(newBtn);
     }
 
+    public void gameSettings() {
+        int selectedOption = JOptionPane.showConfirmDialog(null,
+                "Do you want to add custom pieces?",
+                "Choose",
+                JOptionPane.YES_NO_OPTION);
+        if (selectedOption == JOptionPane.YES_OPTION) {
+            setCustomPiece = true;
+        } else {
+            setCustomPiece = false;
+        }
+
+        String firstPlayer = "";
+        while (!firstPlayer.equalsIgnoreCase("w") && !firstPlayer.equalsIgnoreCase("b")) {
+            firstPlayer = JOptionPane.showInputDialog("Who goes first. Enter 'w' for White, 'b' for Black: ");
+        }
+
+        if (firstPlayer.equalsIgnoreCase("w")) {
+            presentPlayer = game.player1;
+        } else {
+            presentPlayer = game.player0;
+        }
+    }
+
+    /**
+     * decide the button's original background is pink or white
+     * @param btn
+     */
+    private void setBtnBackgroundColor(Button btn) {
+        if ((btn.x + btn.y) % 2 == 0) {
+            btn.setBackground(Color.white);
+        } else {
+            btn.setBackground(Color.pink);
+        }
+    }
+
+    /**
+     * set pieces imageIcon function
+     * @param i the rank number of the button
+     * @param j the file number of the button
+     * @param setCustomPiece whether add custom piece
+     * @return the imageIcon of the button
+     */
     private ImageIcon getImageIcon(int i, int j, boolean setCustomPiece) {
         if (i == 1) {
             return new ImageIcon("img/black_pawn.gif");

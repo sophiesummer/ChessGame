@@ -1,5 +1,6 @@
 package game;
 
+import GUI.BoardGUI;
 import pieces.*;
 import pieces.Type;
 
@@ -21,10 +22,10 @@ public class Board {
     private Player player1;
 
     /** the number of ranks */
-    private int rank;
+    private int rank = 8;
 
     /** the number of files */
-    private int file;
+    private int file = 8;
 
     /** count whether over 100 turns no captures, which is a stalemate.*/
     private int count = 0;
@@ -41,18 +42,19 @@ public class Board {
     public boolean isStaleMate = false;
 
     /** whether play add custom piece version */
-    private boolean addCustomPiece;
+    public boolean addCustomPiece;
+
+    public Player presentTurn;
+
+    public BoardGUI boardGUI;
 
     /**
      * initialize board fields
      * @param game board for the game
      */
     public Board(Game game) {
-        this.rank = game.rank;
-        this.file = game.file;
-        board = new Pieces[rank][file];
-        this.addCustomPiece = game.addCustomPiece;
         this.game = game;
+        board = new Pieces[rank][file];
         this.player0 = game.player0;
         this.player1 = game.player1;
     }
@@ -224,10 +226,17 @@ public class Board {
 
         if (prevPiece instanceof King) {
             prevPiece.getPlayer().isLose = true;   // lose the king
+            game.isEnd = true;
         }
         board[newX][newY] = piece; //put pieces into the new position
         piece.move(newX, newY);
         board[prevX][prevY] = null;
+
+        if (presentTurn == player0) {
+            presentTurn = player1;
+        } else {
+            presentTurn = player0;
+        }
         return prevPiece;
     }
 
