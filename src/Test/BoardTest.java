@@ -18,7 +18,7 @@ class BoardTest {
     private List<Pieces> player1Pieces;
 
     BoardTest() {
-        game = new Game(8, 8, false, "", "");
+        game = new Game();
         playBoard = new Board(game);
         game.playBoard = playBoard;
         player0Pieces = new ArrayList<>();

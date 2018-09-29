@@ -1,4 +1,6 @@
 package game;
+import GUI.GameGUI;
+
 import java.util.*;
 
 public class Game {
@@ -13,29 +15,23 @@ public class Game {
     public Board playBoard;
 
     /** the number of rank on the board */
-    public int rank;
+    public int rank = 8;
 
     /** the number of file on the board */
-    public int file;
+    public int file = 8;
 
     /** whether game is end */
     private boolean isEnd;
 
     public boolean addCustomPiece;
 
+    GameGUI gameGUI;
 
-    /**
-     * initialize game attributes
-     * @param rank the number of rank on the board
-     * @param file the number of file on the board
-     */
-    public Game(int rank, int file, boolean addCustomPiece, String name0, String name1) {
-        this.rank = rank;
-        this.file = file;
-        this.addCustomPiece = addCustomPiece;
 
-        player0 = new Player(0, playBoard, name0); //
-        player1 = new Player(1, playBoard, name1); //
+    public Game() {
+        gameGUI = new GameGUI(this);
+
+        this.addCustomPiece = gameGUI.customize;
         playBoard = new Board(this);
         playBoard.setPieces();
         isEnd = false;
@@ -116,9 +112,9 @@ public class Game {
         return isEnd;
     }
 
-//
-//    public static void main(String args[]) {
-//        Game game = new Game(8, 8);
-//        game.start();
-//    }
+
+    public static void main(String args[]) {
+        Game game = new Game();
+        //game.start();
+    }
 }

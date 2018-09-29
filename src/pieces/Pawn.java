@@ -52,7 +52,7 @@ public class Pawn extends Pieces {
 
         //pawn capture case, it could only attack diagonally
         if (playBoard.board[newX][newY] != null) {
-            if (player.color == 0) {
+            if (player.color == 0) { // 0 is black
                 return Math.abs(newX - x) == 1 && newY - y == 1;
             } else {
                 return Math.abs(newX - x) == 1 && newY - y == -1;

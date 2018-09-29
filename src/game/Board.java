@@ -17,7 +17,7 @@ public class Board {
     /** the upper player */
     private Player player0;
 
-    /** the player locate downwards*/
+    /** the player locate downwards */
     private Player player1;
 
     /** the number of ranks */

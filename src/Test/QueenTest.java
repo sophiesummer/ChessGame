@@ -14,7 +14,7 @@ class QueenTest {
     private Queen testPiece;
 
     public QueenTest() {
-        game = new Game(8, 8, false, "", "");
+        game = new Game();
         testPiece = new Queen(3, 3, game.player0);
         game.playBoard.board[3][3] = testPiece;
     }

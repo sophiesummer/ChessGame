@@ -16,7 +16,7 @@ class RookTest {
     private Rook testPiece;
 
     public RookTest() {
-        game = new Game(8, 8, false, "", "");
+        game = new Game();
         testPiece = new Rook(3, 3, game.player0);
         game.playBoard.board[3][3] = testPiece;
     }

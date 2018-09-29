@@ -24,15 +24,13 @@ public class BoardGUI extends JPanel {
     public BoardGUI(Game game) {
         super(new GridLayout(8, 8));
         setBackground(Color.white);
-        this.game = new Game(8,8, true, "", "");
+        this.game = game;
         setPreferredSize(boardDimension);
         setLocation(0, 0);
-        this.setCustomPiece = this.game.addCustomPiece;
+        this.setCustomPiece = game.addCustomPiece;
         grids = new Button[8][8];
         setPieceInitial(setCustomPiece);
         selectedBtn = null;
-
-        //this.game = game;
     }
 
     public void setPieceInitial(boolean setCustomPiece) {

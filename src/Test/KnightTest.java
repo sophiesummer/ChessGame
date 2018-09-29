@@ -14,7 +14,7 @@ class KnightTest {
     private Knight testPiece;
 
     public KnightTest() {
-        game = new Game(8, 8, false, "","");
+        game = new Game();
         testPiece = new Knight(3, 3, game.player0);
         game.playBoard.board[3][3] = testPiece;
     }

@@ -14,7 +14,7 @@ class PawnTest {
     private Pawn testPiece1;
 
     public PawnTest() {
-        game = new Game(8, 8, false, "", "");
+        game = new Game();
         testPiece0 = new Pawn(3, 1, game.player0, game.playBoard);
         testPiece1 = new Pawn(3, 6, game.player1, game.playBoard);
         game.playBoard.board[3][1] = testPiece0;

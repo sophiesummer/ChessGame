@@ -17,7 +17,7 @@ class WizardTest {
     private Wizard testPiece;
 
     public WizardTest() {
-        game = new Game(8, 8, true, "", "");
+        game = new Game();
         testPiece = new Wizard(3, 3, game.player0);
         game.playBoard.board[3][3] = testPiece;
     }

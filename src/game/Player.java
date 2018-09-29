@@ -16,9 +16,6 @@ public class Player {
     /** whether the player is in check */
     public boolean isChecked;
 
-    /** board the player is playing on */
-    public Board playBoard;
-
     /** whether the player is lose*/
     public boolean isLose;
 
@@ -28,13 +25,12 @@ public class Player {
 
     /**
      * initialize player attributes
-     * @param color the color of player's pieces
-     * @param playBoard the board that player is playing on
+     * @param color the color of player's pieces, 0 is black
      */
-    public Player(int color, Board playBoard, String name) {
+    public Player(int color, String name) {
         this.color = color;
+        this.name = name;
         isChecked = false;
-        this.playBoard = playBoard;
         isLose = false;
         score = 0;
     }
