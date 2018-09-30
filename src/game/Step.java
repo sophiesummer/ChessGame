@@ -22,6 +22,7 @@ public class Step {
         imageIconr = r;
         this.prevPos = prevPos;
         this.newPos = newPos;
+        this.firstStep = firstStep;
     }
 
     public Player movingPlayer() {

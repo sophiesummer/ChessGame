@@ -18,7 +18,7 @@ import java.util.List;
 public class Pawn extends Pieces {
 
     /** the flag to ensure whether this Pawn has moved before */
-    public boolean firstStep = true;
+    public boolean firstStep;
 
     /** the board this piece is moving on */
     private Board playBoard;
@@ -33,6 +33,7 @@ public class Pawn extends Pieces {
         super(x, y, player);
         type = Type.Pawn;
         this.playBoard = playBoard;
+        firstStep = true;
     }
 
 
