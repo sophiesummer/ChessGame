@@ -24,7 +24,6 @@ public class GameGUI {
         window.setLocation(100, 100);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(new Dimension(640, 720));
-        //setUpMenu(window);
         presentGame = game;
 
         playerSettings();
@@ -35,7 +34,6 @@ public class GameGUI {
         gameOperation = new GamePanel(presentGame);
         window.add(gameOperation, BorderLayout.NORTH);
         window.setVisible(true); // set lastly
-
     }
 
     public void updateGameGUI(BoardGUI newBoard) {
@@ -54,20 +52,19 @@ public class GameGUI {
             player0Name = JOptionPane.showInputDialog("Enter your name: ");
         }
 
-        String player0Color = "";
-        while (!player0Color.equalsIgnoreCase("w") && !player0Color.equalsIgnoreCase("b")) {
-            player0Color = JOptionPane.showInputDialog("Choose your pieces color. Enter 'w' for White, 'b' for Black: ");
-        }
+        String[] color = {"White", "Black"};
+        int c = JOptionPane.showOptionDialog(null, "Choose your pieces color",
+                "Choose a color", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                color, color[0]);
 
         String player1Name = "";
         while (player1Name == null || player1Name.equals("") || player1Name.equals(player0Name)) {
             player1Name = JOptionPane.showInputDialog("Enter your name: ");
         }
 
-        if (player0Color.equalsIgnoreCase("w")) {
+        if (c == 0) {
             player0 = new Player(0, player1Name);
             player1 = new Player(1, player0Name);
-
         } else {
             player0 = new Player(0, player0Name);
             player1 = new Player(1, player1Name);

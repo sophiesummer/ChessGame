@@ -43,6 +43,12 @@ public class Game {
         isEnd = false;
     }
 
+    public Game(int test) {
+        player0 = new Player(0, "Sophie");
+        player1 = new Player(1, "Kyra");
+        playBoard = new Board(this);
+    }
+
     /**
      * judge whether the game should end
      * checkmate or stalemate happens

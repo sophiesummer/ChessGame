@@ -223,14 +223,12 @@ public class Board {
         Pieces prevPiece = board[newX][newY];
 
         if (real) {
-            System.out.println("&&&&&&&");
             boolean pawnFirst = ((piece instanceof Pawn) && (((Pawn) piece).firstStep));
             Step curr = new Step(boardGUI.grids[prevX][prevY].getIcon(),
                     boardGUI.grids[newX][newY].getIcon(),
                     piece, prevPiece,
                     piece.getPosition(),
                     new int[]{newX, newY}, pawnFirst);
-            System.out.println(curr.firstStep);
             history.push(curr);
         }
 
@@ -259,17 +257,14 @@ public class Board {
         if (history.size() < 2) {
             return false;
         }
-        System.out.println(history.size());
+
         for (int i = 0; i < 2; i++) {
-            System.out.println(i);
             Step curr = history.pop();
             boardGUI.undoIcon(curr);
             board[curr.prevPos[0]][curr.prevPos[1]] = curr.moving;
             curr.moving.setX(curr.prevPos[0]);
             curr.moving.setY(curr.prevPos[1]);
-            System.out.println("when undo, curr.firstStep : " + curr.firstStep);
             if (curr.firstStep) {
-                System.out.println("firstStep is true");
                 ((Pawn)(curr.moving)).firstStep = true;
             }
             if (curr.removed == null) {
@@ -278,7 +273,6 @@ public class Board {
                 board[curr.newPos[0]][curr.newPos[1]] = curr.removed;
                 curr.removed.getPlayer().pieces.add(curr.removed);
             }
-            System.out.println(i);
         }
         return true;
     }

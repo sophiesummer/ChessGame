@@ -7,8 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class BoardGUI extends JPanel {
@@ -18,7 +20,6 @@ public class BoardGUI extends JPanel {
     public boolean setCustomPiece;
     Button selectedBtn;
     private Game game;
-    private Deque<Pieces> stack = new LinkedList<>();
     public Player presentPlayer;
     public Player oppPlayer;
 
@@ -34,6 +35,19 @@ public class BoardGUI extends JPanel {
         setPieceInitial(setCustomPiece);
         selectedBtn = null;
     }
+
+    public BoardGUI(Game game, int test) {
+        super(new GridLayout(8, 8));
+        setBackground(Color.white);
+        this.game = game;
+        setPreferredSize(boardDimension);
+        setLocation(0, 0);
+        setCustomPiece = false;
+        grids = new Button[8][8];
+        setPieceInitial(setCustomPiece);
+        selectedBtn = null;
+    }
+
 
     public void setPieceInitial(boolean setCustomPiece) {
         for (int i = 0; i < 8; i++) {
@@ -78,13 +92,26 @@ public class BoardGUI extends JPanel {
                 }
                 selectedBtn = btn;
                 btn.setBackground(Color.lightGray);
+                //highlight all possibles
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        Button next = grids[i][j];
+                        if (checkValidation(btn, next)) {
+                            next.setBackground(Color.lightGray);
+                        }
+                    }
+                }
             } else {
-                if (checkValidation(selectedBtn, btn)) {
+                if (selectedBtn == btn) {
+                    updateBackground();
+                    selectedBtn = null;
+                } else if (checkValidation(selectedBtn, btn)) {
                     executeMovement(selectedBtn, btn);
                     selectedBtn = null;
+                    updateBackground();
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid movement! Please try another move.");
-                    setBtnBackgroundColor(selectedBtn);
+                    updateBackground();
                     selectedBtn = null;
                 }
             }
@@ -161,11 +188,10 @@ public class BoardGUI extends JPanel {
         selectedBtn = null;
         grids[curr.prevPos[0]][curr.prevPos[1]].setIcon(curr.imageIconi);
         grids[curr.newPos[0]][curr.newPos[1]].setIcon(curr.imageIconr);
-        System.out.println(curr.newPos[0] + " " + curr.newPos[1]);
     }
 
     public void gameSettings() {
-        JOptionPane.showMessageDialog(null, "Let's start a game!");
+        JOptionPane.showMessageDialog(null, "Let's start a new game!");
         int selectedOption = JOptionPane.showConfirmDialog(null,
                 "Do you want to add custom pieces?",
                 "Choose",
@@ -179,12 +205,12 @@ public class BoardGUI extends JPanel {
             setCustomPiece = false;
         }
 
-        String firstPlayer = "";
-        while (!firstPlayer.equalsIgnoreCase("w") && !firstPlayer.equalsIgnoreCase("b")) {
-            firstPlayer = JOptionPane.showInputDialog("Who goes first. Enter 'w' for White, 'b' for Black: ");
-        }
+        String[] color = {game.player1.name, game.player0.name};
+        int firstGo = JOptionPane.showOptionDialog(null, "Who goes first ?",
+                "Choose a player", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                color, color[0]);
 
-        if (firstPlayer.equalsIgnoreCase("w")) {
+        if (firstGo == 0) {
             presentPlayer = game.player1;
             oppPlayer = game.player0;
         } else {
@@ -205,6 +231,13 @@ public class BoardGUI extends JPanel {
         }
     }
 
+    private void updateBackground() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                setBtnBackgroundColor(grids[i][j]);
+            }
+        }
+    }
     /**
      * set pieces imageIcon function
      * @param i the rank number of the button
