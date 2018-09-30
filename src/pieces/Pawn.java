@@ -18,7 +18,7 @@ import java.util.List;
 public class Pawn extends Pieces {
 
     /** the flag to ensure whether this Pawn has moved before */
-    private boolean firstStep = true;
+    public boolean firstStep = true;
 
     /** the board this piece is moving on */
     private Board playBoard;
@@ -59,7 +59,7 @@ public class Pawn extends Pieces {
             }
         } else {
             // check move forward and the number of steps
-            if (player.color == 0) {
+            if (player.color == 0) { //black
                 return (firstStep && newX == x && (newY - y == 1 || newY - y == 2))
                         || (!firstStep && newX == x && newY - y == 1);
             } else {

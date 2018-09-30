@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BishopTest {
 
-    private Game game;
     private Bishop testPiece;
 
     public BishopTest() {
-        game = new Game();
-        testPiece = new Bishop(3, 3, game.player0);
-        game.playBoard.board[3][3] = testPiece;
+        Player testPlayer = new Player(0, "Sophie");
+        testPiece = new Bishop(3, 3, testPlayer);
+        //Board playBoard = new Board()
+        //game.playBoard.board[3][3] = testPiece;
     }
 
     /**

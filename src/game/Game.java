@@ -1,6 +1,8 @@
 package game;
+import GUI.BoardGUI;
 import GUI.GameGUI;
 
+import java.awt.*;
 import java.util.*;
 
 public class Game {
@@ -25,7 +27,8 @@ public class Game {
 
     public int endState;
 
-    GameGUI gameGUI;
+    public GameGUI gameGUI;
+
 
     public Game() {
         gameGUI = new GameGUI(this);
@@ -62,14 +65,14 @@ public class Game {
      */
     public boolean start() {
         System.out.println("Game start!");
-
         while (!isEnd) {
 
         }
+        System.out.println("Finished !!!!!");
 
-        if (player1.isLose) {
+        if (endState == 0) {
             System.out.println("player0 win!!");
-        } else if (player0.isLose) {
+        } else if (endState == 1) {
             System.out.println("player1 win!!");
         } else {
             System.out.println("Draw!!");
@@ -77,6 +80,20 @@ public class Game {
         return isEnd;
     }
 
+    public void startNewGame() {
+        playBoard = new Board(this);
+
+        BoardGUI newBoardGUI = new BoardGUI(this);
+
+        gameGUI.updateGameGUI(newBoardGUI);
+
+        playBoard.addCustomPiece = gameGUI.chessBoard.setCustomPiece;
+        playBoard.presentTurn = gameGUI.chessBoard.presentPlayer;
+        playBoard.boardGUI = gameGUI.chessBoard;
+
+        playBoard.setPieces();
+        isEnd = false;
+    }
 
     public static void main(String args[]) {
         Game game = new Game();

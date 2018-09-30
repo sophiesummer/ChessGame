@@ -4,6 +4,7 @@ import GUI.BoardGUI;
 import pieces.*;
 import pieces.Type;
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -47,6 +48,8 @@ public class Board {
     public Player presentTurn;
 
     public BoardGUI boardGUI;
+
+    public Deque<Step> history = new LinkedList<>();
 
     /**
      * initialize board fields
@@ -209,15 +212,26 @@ public class Board {
      * @param prevY the start file position
      * @param newX the destination of rank position
      * @param newY the destination of file position
-     * @return  pieces which is removed from the board
+     * @return pieces which is removed from the board
      */
-    public Pieces putPieces(Player player, int prevX, int prevY, int newX, int newY) {
+    public Pieces putPieces(Player player, int prevX, int prevY, int newX, int newY, boolean real) {
         Pieces piece = board[prevX][prevY];
         if (!checkValid(player, prevX, prevY, newX, newY)) {
             return null;
         }
         count++; // count increasing for each turn
         Pieces prevPiece = board[newX][newY];
+
+        if (real) {
+            boolean pawnFirst = (piece instanceof Pawn) && ((Pawn) piece).firstStep;
+            Step curr = new Step(boardGUI.grids[prevX][prevY].getIcon(),
+                    boardGUI.grids[newX][newY].getIcon(),
+                    piece, prevPiece,
+                    piece.getPosition(),
+                    new int[]{newX, newY}, pawnFirst);
+            history.push(curr);
+        }
+
         if (board[newX][newY] != null) {
             count = 0; // if capture happen, count from start.
             Player standingPlayer = prevPiece.getPlayer();
@@ -231,13 +245,40 @@ public class Board {
         board[newX][newY] = piece; //put pieces into the new position
         piece.move(newX, newY);
         board[prevX][prevY] = null;
-
-        if (presentTurn == player0) {
-            presentTurn = player1;
-        } else {
-            presentTurn = player0;
-        }
         return prevPiece;
+    }
+
+
+    /**
+     * player can choose undo during their own turn
+     * @param player who decide to undo
+     */
+    public boolean undo(Player player) {
+        if (history.size() < 2) {
+            return false;
+        }
+        System.out.println(history.size());
+        for (int i = 0; i < 2; i++) {
+            System.out.println(i);
+            Step curr = history.pop();
+            boardGUI.undoIcon(curr);
+            board[curr.prevPos[0]][curr.prevPos[1]] = curr.moving;
+            curr.moving.setX(curr.prevPos[0]);
+            curr.moving.setY(curr.prevPos[1]);
+            System.out.println("firstStep is true");
+            if (curr.firstStep) {
+                System.out.println("firstStep is true");
+                ((Pawn)(curr.moving)).firstStep = true;
+            }
+            if (curr.removed == null) {
+                board[curr.newPos[0]][curr.newPos[1]] = null;
+            } else {
+                board[curr.newPos[0]][curr.newPos[1]] = curr.removed;
+                curr.removed.getPlayer().pieces.add(curr.removed);
+            }
+            System.out.println(i);
+        }
+        return true;
     }
 
 
@@ -275,9 +316,9 @@ public class Board {
                 return false;
             }
         }
+
         return p.isValidMove(newX, newY);
     }
-
 
     /**
      * check whether exists pieces can capture opponent's king
@@ -362,27 +403,39 @@ public class Board {
             for (int i = 0; i < rank; i++) {
                 for (int j = 0; j < file; j++) {
                     if (checkValid(checkedPlayer, prevPos[0], prevPos[1], i, j)) {
-                        Pieces removed = putPieces(checkedPlayer, prevPos[0], prevPos[1], i, j);
+                        boolean pawnFirst = false;
+                        if (eachPieces instanceof Pawn && ((Pawn) eachPieces).firstStep) {
+                            pawnFirst = true;
+                        }
+                        Pieces removed = putPieces(checkedPlayer, prevPos[0], prevPos[1], i, j, false);
                         if (!inCheck(movingPlayer, checkedPlayer)) {
                             // go back to last step
                             board[prevPos[0]][prevPos[1]] = eachPieces;
                             eachPieces.setX(prevPos[0]);
                             eachPieces.setY(prevPos[1]);
+                            if (pawnFirst) {
+                                ((Pawn)eachPieces).firstStep = true;
+                            }
                             if (removed != null) {
                                 board[i][j] = removed;
                                 removed.getPlayer().pieces.add(removed);
+                            } else {
+                                board[i][j] = null;
                             }
-                            System.out.print(prevPos[0]);
-                            System.out.println(prevPos[1]);
                             return true;
                         }
                         // go back to last step
                         board[prevPos[0]][prevPos[1]] = eachPieces;
                         eachPieces.setX(prevPos[0]);
                         eachPieces.setY(prevPos[1]);
+                        if (pawnFirst) {
+                            ((Pawn)eachPieces).firstStep = true;
+                        }
                         if (removed != null) {
                             board[i][j] = removed;
                             removed.getPlayer().pieces.add(removed);
+                        } else {
+                            board[i][j] = null;
                         }
                     }
                 }

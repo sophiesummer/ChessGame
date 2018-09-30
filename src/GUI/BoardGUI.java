@@ -1,9 +1,9 @@
 package GUI;
 import game.*;
 import pieces.Pieces;
+import pieces.Type;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +20,7 @@ public class BoardGUI extends JPanel {
     private Game game;
     private Deque<Pieces> stack = new LinkedList<>();
     public Player presentPlayer;
+    public Player oppPlayer;
 
 
     public BoardGUI(Game game) {
@@ -53,7 +54,6 @@ public class BoardGUI extends JPanel {
                 btn.setBorderPainted(false);
                 btn.setVisible(true);
                 btn.setOpaque(true);
-                //btn.addActionListener();
 
                 setBtnBackgroundColor(btn);
                 add(btn, gbc);
@@ -61,8 +61,6 @@ public class BoardGUI extends JPanel {
             }
         }
     }
-
-
 
 
     class ButtonAction implements ActionListener {
@@ -74,7 +72,7 @@ public class BoardGUI extends JPanel {
                 return;
             }
             if (btn.getIcon() != null && selectedBtn == null) {
-                if (game.playBoard.board[btn.x][btn.y].getPlayer() != game.playBoard.presentTurn) {
+                if (game.playBoard.board[btn.x][btn.y].getPlayer() != presentPlayer) {
                     JOptionPane.showMessageDialog(null, "It's not " + game.playBoard.board[btn.x][btn.y].getPlayer().name + "'s turn.");
                     return;
                 }
@@ -104,26 +102,80 @@ public class BoardGUI extends JPanel {
      * @param newBtn
      */
     private void executeMovement(Button prevBtn, Button newBtn) {
-        if (newBtn.getIcon() != null) {
-            // store ;
 
-        }
+        Player present = game.playBoard.board[prevBtn.x][prevBtn.y].getPlayer();
+        Pieces removed = game.playBoard.putPieces(present, prevBtn.x, prevBtn.y, newBtn.x, newBtn.y, true);  //forfeit
         newBtn.setIcon(prevBtn.getIcon());
         prevBtn.setIcon(null);
-        Player present = game.playBoard.board[prevBtn.x][prevBtn.y].getPlayer();
-        game.playBoard.putPieces(present, prevBtn.x, prevBtn.y, newBtn.x, newBtn.y);  //forfeit
         setBtnBackgroundColor(prevBtn);
         setBtnBackgroundColor(newBtn);
+
+        // whether checkmate
+        if (game.playBoard.isCheckmate(presentPlayer, oppPlayer) || (removed!= null && removed.type == Type.King)) {
+            JOptionPane.showMessageDialog(null, "Checkmate! " + presentPlayer.name + " win !");
+            presentPlayer.score += 5;
+            game.endState = presentPlayer.color;
+            game.isEnd = true;
+            game.gameGUI.gameOperation.updateScore();
+            game.startNewGame();
+            return;
+        }
+
+        // whether stalemate
+        if (game.playBoard.isStalemate(presentPlayer, oppPlayer)) {
+            JOptionPane.showMessageDialog(null, "Stalemate! ");
+            presentPlayer.score += 5;
+            oppPlayer.score += 5;
+            game.endState = -1;
+            game.isEnd = true;
+            game.gameGUI.gameOperation.updateScore();
+            game.startNewGame();
+            return;
+        }
+
+        // whether in check
+        if (game.playBoard.inCheck(presentPlayer, oppPlayer)) {
+            JOptionPane.showMessageDialog(null, "Check!", null, JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (game.playBoard.inCheck(oppPlayer, presentPlayer)) {
+            JOptionPane.showMessageDialog(null, "King is in Check now!",null, JOptionPane.WARNING_MESSAGE);
+        }
+
+        // change turn;
+        Player temp = presentPlayer;
+        presentPlayer = oppPlayer;
+        oppPlayer = temp;
+        game.playBoard.presentTurn = presentPlayer;
+        System.out.println(presentPlayer.name + "----BoardGUI");
+    }
+
+    /**
+     * Change button's image icon back to the origin place.
+     * @param curr present command
+     */
+    public void undoIcon(Step curr) {
+        if (selectedBtn != null) {
+            setBtnBackgroundColor(selectedBtn);
+        }
+        selectedBtn = null;
+        grids[curr.prevPos[0]][curr.prevPos[1]].setIcon(curr.imageIconi);
+        grids[curr.newPos[0]][curr.newPos[1]].setIcon(curr.imageIconr);
+        System.out.println(curr.newPos[0] + " " + curr.newPos[1]);
     }
 
     public void gameSettings() {
+        JOptionPane.showMessageDialog(null, "Let's start a game!");
         int selectedOption = JOptionPane.showConfirmDialog(null,
                 "Do you want to add custom pieces?",
                 "Choose",
                 JOptionPane.YES_NO_OPTION);
         if (selectedOption == JOptionPane.YES_OPTION) {
             setCustomPiece = true;
+        } else if (selectedOption == JOptionPane.NO_OPTION) {
+            setCustomPiece = false;
         } else {
+            JOptionPane.showMessageDialog(null, "By default, play without custom pieces");
             setCustomPiece = false;
         }
 
@@ -134,8 +186,10 @@ public class BoardGUI extends JPanel {
 
         if (firstPlayer.equalsIgnoreCase("w")) {
             presentPlayer = game.player1;
+            oppPlayer = game.player0;
         } else {
             presentPlayer = game.player0;
+            oppPlayer = game.player1;
         }
     }
 

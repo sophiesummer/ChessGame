@@ -14,6 +14,7 @@ public class GameGUI {
     public Game presentGame;
     public Player player0;
     public Player player1;
+    public GamePanel gameOperation;
 
     public GameGUI(Game game) {
         window = new JFrame("MY Chess Game");
@@ -31,9 +32,19 @@ public class GameGUI {
         presentGame.player1 = player1;
         chessBoard = new BoardGUI(presentGame); // user input to choose
         window.add(chessBoard, BorderLayout.CENTER);
-
-        window.add(new GamePanel(presentGame), BorderLayout.NORTH);
+        gameOperation = new GamePanel(presentGame);
+        window.add(gameOperation, BorderLayout.NORTH);
         window.setVisible(true); // set lastly
+
+    }
+
+    public void updateGameGUI(BoardGUI newBoard) {
+        window.getContentPane().removeAll();
+        chessBoard = newBoard;
+        window.add(newBoard);
+        window.add(gameOperation, BorderLayout.NORTH);
+        window.setVisible(true);
+        window.repaint();
     }
 
 

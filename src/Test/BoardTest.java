@@ -102,7 +102,7 @@ class BoardTest {
         assertTrue(playBoard.board[4][1].getType() == Type.Hopper);
         assertTrue(playBoard.checkValid(game.player0, 4, 1, 4, 3));
         assertTrue(playBoard.checkValid(game.player1, 0, 5, 2, 5));
-        playBoard.putPieces(game.player1, 0, 5, 2, 5);
+        playBoard.putPieces(game.player1, 0, 5, 2, 5, true);
         assertTrue(playBoard.board[2][5].getType() == Type.Hopper);
 
         // test Pawn attack
@@ -115,7 +115,7 @@ class BoardTest {
 
         // player1's knight1 attack player0's rook
         assertTrue(playBoard.checkValid(game.player1, 5, 2, 3,3));
-        assertEquals(rookPlayer0, playBoard.putPieces(game.player1, 5, 2, 3, 3));
+        assertEquals(rookPlayer0, playBoard.putPieces(game.player1, 5, 2, 3, 3, true));
         assertFalse(game.player0.hasThePiece(rookPlayer0)); // player0 no longer has the attacked piece
         assertEquals(knight1Player1, playBoard.board[3][3]); // bishop goes to the new position
         assertEquals(null, playBoard.board[5][2]); // the previous position now is null
@@ -126,13 +126,13 @@ class BoardTest {
         // check pawn attack validation
         assertTrue(playBoard.checkValid(game.player0, 5, 1, 4, 2));
         // check removed pieces
-        assertEquals(rookPlayer1, playBoard.putPieces(game.player0, 5, 1, 4, 2));
+        assertEquals(rookPlayer1, playBoard.putPieces(game.player0, 5, 1, 4, 2, true));
         assertFalse(game.player1.hasThePiece(rookPlayer1));// player1 no longer has the attacked piece
         assertEquals(pawnPlayer0, playBoard.board[4][2]); // pawn goes to the new position
         assertEquals(null, playBoard.board[5][2]); // previous position has no pieces now
         assertArrayEquals(pawnPlayer0.getPosition(), new int[]{4, 2}); // pawn's position has been updated
 
-        playBoard.putPieces(game.player1, 1, 4, 0, 3);
+        playBoard.putPieces(game.player1, 1, 4, 0, 3, true);
         assertTrue(playBoard.board[0][3].getType() == Type.Wizard);
         assertTrue(playBoard.board[0][3].getPlayer() == game.player1);
         assertArrayEquals(new int[]{0, 3}, playBoard.board[0][3].getPosition());
@@ -169,15 +169,15 @@ class BoardTest {
         playBoard.setPieces();
         // first round
         assertTrue(playBoard.checkValid(game.player0, 4, 1, 4, 3));
-        playBoard.putPieces(game.player0, 4, 1, 4, 3);
+        playBoard.putPieces(game.player0, 4, 1, 4, 3, true);
         assertTrue(playBoard.checkValid(game.player1, 5, 6, 5, 5));
-        playBoard.putPieces(game.player1, 5, 6, 5, 5);
+        playBoard.putPieces(game.player1, 5, 6, 5, 5, true);
 
         // second round
         assertTrue(playBoard.checkValid(game.player0, 3, 0, 7, 4));
-        playBoard.putPieces(game.player0, 3, 0, 7, 4);
+        playBoard.putPieces(game.player0, 3, 0, 7, 4, true);
         assertTrue(playBoard.checkValid(game.player1, 6, 6, 6, 4));
-        playBoard.putPieces(game.player1, 6, 6, 6, 4);
+        playBoard.putPieces(game.player1, 6, 6, 6, 4, true);
 
         assertTrue(playBoard.inCheck(game.player0, game.player1)); // player1's king is in check
         assertTrue(playBoard.isCheckmate(game.player0, game.player1)); // checkMate
