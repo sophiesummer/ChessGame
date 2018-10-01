@@ -1,6 +1,7 @@
 package Test;
 
 import game.Game;
+import game.Player;
 import org.junit.jupiter.api.Test;
 import pieces.Rook;
 import pieces.Type;
@@ -12,13 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RookTest {
 
-    private Game game;
     private Rook testPiece;
 
     public RookTest() {
-        game = new Game();
-        testPiece = new Rook(3, 3, game.player0);
-        game.playBoard.board[3][3] = testPiece;
+        Player testPlayer = new Player(0, "Sophie");
+        testPiece = new Rook(3, 3, testPlayer);
     }
 
     @Test

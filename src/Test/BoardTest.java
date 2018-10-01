@@ -1,7 +1,9 @@
 package Test;
 
+import GUI.BoardGUI;
 import game.Board;
 import game.Game;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pieces.*;
 
@@ -17,10 +19,12 @@ class BoardTest {
     private List<Pieces> player0Pieces;
     private List<Pieces> player1Pieces;
 
-    BoardTest() {
-        game = new Game();
-        playBoard = new Board(game);
-        game.playBoard = playBoard;
+
+    @BeforeEach
+    void boardTestPrepare() {
+        game = new Game(0);
+        playBoard = game.playBoard;
+        playBoard.boardGUI = new BoardGUI(game, 1);
         player0Pieces = new ArrayList<>();
         player1Pieces = new ArrayList<>();
         game.player0.pieces = player0Pieces;
@@ -116,6 +120,7 @@ class BoardTest {
         // player1's knight1 attack player0's rook
         assertTrue(playBoard.checkValid(game.player1, 5, 2, 3,3));
         assertEquals(rookPlayer0, playBoard.putPieces(game.player1, 5, 2, 3, 3, true));
+
         assertFalse(game.player0.hasThePiece(rookPlayer0)); // player0 no longer has the attacked piece
         assertEquals(knight1Player1, playBoard.board[3][3]); // bishop goes to the new position
         assertEquals(null, playBoard.board[5][2]); // the previous position now is null
@@ -132,11 +137,12 @@ class BoardTest {
         assertEquals(null, playBoard.board[5][2]); // previous position has no pieces now
         assertArrayEquals(pawnPlayer0.getPosition(), new int[]{4, 2}); // pawn's position has been updated
 
+        assertTrue(playBoard.undo(game.player0));
         playBoard.putPieces(game.player1, 1, 4, 0, 3, true);
         assertTrue(playBoard.board[0][3].getType() == Type.Wizard);
         assertTrue(playBoard.board[0][3].getPlayer() == game.player1);
         assertArrayEquals(new int[]{0, 3}, playBoard.board[0][3].getPosition());
-
+        assertTrue(playBoard.undo(game.player1));
     }
 
     @Test
@@ -181,6 +187,9 @@ class BoardTest {
 
         assertTrue(playBoard.inCheck(game.player0, game.player1)); // player1's king is in check
         assertTrue(playBoard.isCheckmate(game.player0, game.player1)); // checkMate
+        assertEquals(true, playBoard.history.peek().firstStep);
+        assertArrayEquals(new int[]{6, 6}, playBoard.history.peek().prevPos);
+        assertTrue(playBoard.undo(game.player0));
     }
 
     @Test

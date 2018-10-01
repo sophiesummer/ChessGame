@@ -1,6 +1,7 @@
 package Test;
 
 import game.Game;
+import game.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pieces.Type;
@@ -13,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WizardTest {
 
-    private Game game;
     private Wizard testPiece;
 
     public WizardTest() {
-        game = new Game();
-        testPiece = new Wizard(3, 3, game.player0);
-        game.playBoard.board[3][3] = testPiece;
+        Player testPlayer = new Player(0, "Sophie");
+        testPiece = new Wizard(3, 3, testPlayer);
     }
 
     @Test

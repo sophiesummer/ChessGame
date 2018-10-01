@@ -39,11 +39,8 @@ public class Queen extends Pieces {
                 || (x == newX && y == newY)) {
             return false;
         }
-        if (Math.abs(x - newX) == Math.abs(y - newY)
-                || x == newX || y == newY) {
-            return true;
-        }
-        return false;
+        return Math.abs(x - newX) == Math.abs(y - newY)
+                || x == newX || y == newY;
     }
 
     /**

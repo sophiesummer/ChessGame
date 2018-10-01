@@ -1,6 +1,7 @@
 package Test;
 
 import game.Game;
+import game.Player;
 import org.junit.jupiter.api.Test;
 import pieces.Queen;
 
@@ -10,13 +11,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueenTest {
-    private Game game;
     private Queen testPiece;
 
     public QueenTest() {
-        game = new Game();
-        testPiece = new Queen(3, 3, game.player0);
-        game.playBoard.board[3][3] = testPiece;
+        Player testPlayer = new Player(0, "Sophie");
+        testPiece = new Queen(3, 3, testPlayer);
     }
 
     @Test

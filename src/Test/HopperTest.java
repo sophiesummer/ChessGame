@@ -12,7 +12,7 @@ class HopperTest {
     private Hopper testPiece;
 
     public HopperTest() {
-        game = new Game();
+        game = new Game(1);
         testPiece = new Hopper(3, 3, game.player0, game.playBoard);
         game.playBoard.board[3][3] = testPiece;
 

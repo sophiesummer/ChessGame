@@ -12,7 +12,9 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * BoardGUI implements board view
+ */
 public class BoardGUI extends JPanel {
     private Dimension boardDimension = new Dimension(640, 640);
     private Dimension pieceDimension = new Dimension(80, 80);
@@ -24,6 +26,10 @@ public class BoardGUI extends JPanel {
     public Player oppPlayer;
 
 
+    /**
+     * Initialize a chessboard view and place the pieces
+     * @param game The game which this board is belong to.
+     */
     public BoardGUI(Game game) {
         super(new GridLayout(8, 8));
         setBackground(Color.white);
@@ -31,18 +37,6 @@ public class BoardGUI extends JPanel {
         setPreferredSize(boardDimension);
         setLocation(0, 0);
         gameSettings();
-        grids = new Button[8][8];
-        setPieceInitial(setCustomPiece);
-        selectedBtn = null;
-    }
-
-    public BoardGUI(Game game, int test) {
-        super(new GridLayout(8, 8));
-        setBackground(Color.white);
-        this.game = game;
-        setPreferredSize(boardDimension);
-        setLocation(0, 0);
-        setCustomPiece = false;
         grids = new Button[8][8];
         setPieceInitial(setCustomPiece);
         selectedBtn = null;
@@ -136,6 +130,7 @@ public class BoardGUI extends JPanel {
         prevBtn.setIcon(null);
         setBtnBackgroundColor(prevBtn);
         setBtnBackgroundColor(newBtn);
+        updateBackground();
 
         // whether checkmate
         if (game.playBoard.isCheckmate(presentPlayer, oppPlayer) || (removed!= null && removed.type == Type.King)) {
@@ -190,6 +185,9 @@ public class BoardGUI extends JPanel {
         grids[curr.newPos[0]][curr.newPos[1]].setIcon(curr.imageIconr);
     }
 
+    /**
+     * Decide whether add custom pieces, and the first move player
+     */
     public void gameSettings() {
         JOptionPane.showMessageDialog(null, "Let's start a new game!");
         int selectedOption = JOptionPane.showConfirmDialog(null,
@@ -221,7 +219,7 @@ public class BoardGUI extends JPanel {
 
     /**
      * decide the button's original background is pink or white
-     * @param btn
+     * @param btn current button
      */
     private void setBtnBackgroundColor(Button btn) {
         if ((btn.x + btn.y) % 2 == 0) {
@@ -231,6 +229,9 @@ public class BoardGUI extends JPanel {
         }
     }
 
+    /**
+     * remove highlight of the chessboard button
+     */
     private void updateBackground() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -238,6 +239,7 @@ public class BoardGUI extends JPanel {
             }
         }
     }
+
     /**
      * set pieces imageIcon function
      * @param i the rank number of the button
@@ -326,5 +328,17 @@ public class BoardGUI extends JPanel {
             return new ImageIcon("img/white_king.gif");
         }
         return null;
+    }
+
+    public BoardGUI(Game game, int test) {
+        super(new GridLayout(8, 8));
+        setBackground(Color.white);
+        this.game = game;
+        setPreferredSize(boardDimension);
+        setLocation(0, 0);
+        setCustomPiece = false;
+        grids = new Button[8][8];
+        setPieceInitial(setCustomPiece);
+        selectedBtn = null;
     }
 }

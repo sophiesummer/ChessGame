@@ -45,10 +45,12 @@ public class Board {
     /** whether play add custom piece version */
     public boolean addCustomPiece;
 
+    /** who is now in turn */
     public Player presentTurn;
 
     public BoardGUI boardGUI;
 
+    /** a stack store all previous steps */
     public Deque<Step> history = new LinkedList<>();
 
     /**
@@ -372,11 +374,6 @@ public class Board {
         if (!inCheck(movingPlayer, opponent) && !hasLegalMove(movingPlayer, opponent)) {
             isStaleMate = true;
           return true;
-        }
-        if (!player1.isLose && !player0.isLose
-                && player0.pieces.size() == 1 && player1.pieces.size() == 1) {
-            isStaleMate = true;
-            return true;
         }
 
         if (count > 100){

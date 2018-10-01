@@ -1,10 +1,8 @@
 package Test;
 
-import game.*;
-import org.junit.jupiter.api.BeforeEach;
+import game.Player;
 import org.junit.jupiter.api.Test;
 import pieces.Bishop;
-import pieces.Pieces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +16,6 @@ class BishopTest {
     public BishopTest() {
         Player testPlayer = new Player(0, "Sophie");
         testPiece = new Bishop(3, 3, testPlayer);
-        //Board playBoard = new Board()
-        //game.playBoard.board[3][3] = testPiece;
     }
 
     /**

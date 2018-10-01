@@ -29,7 +29,9 @@ public class Game {
 
     public GameGUI gameGUI;
 
-
+    /**
+     * Initialize current game's board and boardGUI, gameGUI
+     */
     public Game() {
         gameGUI = new GameGUI(this);
         playBoard = new Board(this);
@@ -41,12 +43,6 @@ public class Game {
 
         playBoard.setPieces();
         isEnd = false;
-    }
-
-    public Game(int test) {
-        player0 = new Player(0, "Sophie");
-        player1 = new Player(1, "Kyra");
-        playBoard = new Board(this);
     }
 
     /**
@@ -75,17 +71,12 @@ public class Game {
 
         }
         System.out.println("Finished !!!!!");
-
-        if (endState == 0) {
-            System.out.println("player0 win!!");
-        } else if (endState == 1) {
-            System.out.println("player1 win!!");
-        } else {
-            System.out.println("Draw!!");
-        }
         return isEnd;
     }
 
+    /**
+     * restart or forfeit or a game is end, then call start a new game
+     */
     public void startNewGame() {
         playBoard = new Board(this);
 
@@ -103,6 +94,11 @@ public class Game {
 
     public static void main(String args[]) {
         Game game = new Game();
-        //game.start();
+    }
+
+    public Game(int test) {
+        player0 = new Player(0, "Sophie");
+        player1 = new Player(1, "Kyra");
+        playBoard = new Board(this);
     }
 }

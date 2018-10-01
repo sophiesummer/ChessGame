@@ -36,11 +36,8 @@ public class Rook extends Pieces {
             return false;
         }
 
-        if (newX == x || newY == y) {
-            return true;
-        }
+        return newX == x || newY == y;
 
-        return false;
     }
 
     /**

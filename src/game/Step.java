@@ -25,8 +25,4 @@ public class Step {
         this.firstStep = firstStep;
     }
 
-    public Player movingPlayer() {
-        return moving.getPlayer();
-    }
-
 }

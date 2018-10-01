@@ -7,11 +7,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Score panel and Restart, Forfeit, Undo button panel
+ */
 public class GamePanel extends JPanel {
     private JLabel player0Score;
     private JLabel player1Score;
     public Game game;
 
+    /**
+     * Initialize the panel
+     * @param game current game
+     */
     public GamePanel(Game game) {
         super(new GridLayout(2, 3));
         setBackground(Color.lightGray);
@@ -38,6 +45,9 @@ public class GamePanel extends JPanel {
         this.setBackground(Color.PINK);
     }
 
+    /**
+     * present players' score in the panel
+     */
     public void setScoreText() {
         player0Score = new JLabel();
         player0Score.setText("Player " + game.player0.name + " Score : " + game.player0.score);
@@ -51,6 +61,9 @@ public class GamePanel extends JPanel {
         this.add(player1Score);
     }
 
+    /**
+     * repaint the score panel
+     */
     public void updateScore() {
         player0Score.setText("Player " + game.player0.name + " Score : " + game.player0.score);
         player1Score.setText("Player " + game.player1.name + " Score : " + game.player1.score);
